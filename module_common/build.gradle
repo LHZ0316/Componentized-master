@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+def ext = rootProject.ext
+def version = ext.versions
+def dependencie = ext.dependencies
+
+android {
+    compileSdkVersion version.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion version.minSdkVersion
+        targetSdkVersion version.targetSdkVersion
+        versionCode version.versionCode
+        versionName version.versionName
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api dependencie.junit
+    api dependencie.runner
+    api dependencie.core
+
+    api project(':lib_base_common')//基类
+    api project(':lib_base_utils')//工具类
+    api project(':lib_share_push')//分享模块
+    api project(':lib_thermal_repair')//热更新模块
+
+    // 黄油刀
+    implementation dependencie.butterknife
+    annotationProcessor dependencie.butterknife_compiler
+
+}

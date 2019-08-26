@@ -1,0 +1,8 @@
+
+include ':app', ':module_common', ':module_core', ':module_home', ':module_task', ':module_find', ':module_my'
+include ':lib_base_common', ':lib_base_utils', ':lib_thermal_repair', ':lib_share_push'
+
+project(':lib_base_common').projectDir = new File('library/lib_base_common')
+project(':lib_base_utils').projectDir = new File('library/lib_base_utils')
+project(':lib_thermal_repair').projectDir = new File('library/lib_thermal_repair')
+project(':lib_share_push').projectDir = new File('library/lib_share_push')

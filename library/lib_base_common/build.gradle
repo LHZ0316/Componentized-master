@@ -1,0 +1,119 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+def ext = rootProject.ext
+def version = ext.versions
+def dependencie = ext.dependencies
+
+android {
+
+    compileSdkVersion version.compileSdkVersion
+    defaultConfig {
+        minSdkVersion version.minSdkVersion
+        targetSdkVersion version.targetSdkVersion
+        versionCode version.versionCode
+        versionName version.versionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion '28.0.0'
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //    implementation 'com.android.support:appcompat-v7:28.0.0'
+    //    testImplementation 'junit:junit:4.12'
+    //    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation dependencie.appcompat_v7
+    testImplementation dependencie.junit
+    androidTestImplementation dependencie.runner
+    androidTestImplementation dependencie.core
+
+    // v7包和v4包
+//    api dependencie.appcompat_v7
+//    api dependencie.support_v4
+
+    // Material Design   Android 5.0新特性
+    api dependencie.constraint_layout
+    api dependencie.design
+    api dependencie.cardview
+    api dependencie.customtabs
+    api dependencie.recyclerview
+
+    // dex解决方法超过65535数量
+    api dependencie.multidex
+
+    // 一个Adapter开源库,BaseRecyclerViewAdapterHelper
+    api dependencie.recycle_adapter
+    // 一个强大的下拉刷新库,SmartRefreshLayout
+    api dependencie.smart_refresh_layout
+
+    // 网络框架OkHttp
+    // https://github.com/square/okhttp
+    api dependencie.okhttp3
+    api dependencie.okhttp3_logging
+    api dependencie.okio
+
+    // 网络框架retrofit
+    // https://github.com/square/retrofit
+    api dependencie.retrofit2
+    api dependencie.retrofit2_adapter_rxjava2
+    api dependencie.retrofit2_converter_gson
+
+    // Rx
+    // https://github.com/ReactiveX/RxAndroid
+    // https://github.com/ReactiveX/RxJava
+    api dependencie.rxjava
+    api dependencie.rxandroid2
+    api dependencie.rxlifecycle//处理rxJava内存泄露
+    api dependencie.rxlifecycle_components
+
+    //方便处理6.0运行时动态权限问题
+    api dependencie.rxpermissions
+
+    // Gson https://github.com/google/gson
+    api dependencie.gson
+
+    // Log日志工具 https://github.com/orhanobut/logger
+    api dependencie.logger
+
+    // 阿里开源的路由框架，用于组件化通信
+    api dependencie.arouter_api
+
+    // Android的事件发布-订阅总线
+    api dependencie.eventbus
+
+    // 黄油刀
+    implementation dependencie.butterknife
+    annotationProcessor dependencie.butterknife_compiler
+
+    //图片加载框架
+    api dependencie.glide
+
+    //图片轮播控件
+    api dependencie.banner
+
+}
