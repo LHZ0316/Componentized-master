@@ -11,7 +11,7 @@ def version = ext.versions
 def appPackage = ext.appID
 def dependencie = ext.dependencies
 //获取签名文件
-def keystorePropertiesFile = rootProject.file("../Componentized-master/app/keystore.properties")
+def keystorePropertiesFile = rootProject.file("../MvpFrame/app/keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
@@ -86,7 +86,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     implementation project(':module_common')
-    implementation project(':lib_thermal_repair')//热更新模块
+//    implementation project(':lib_thermal_repair')//热更新模块
     //个推sdk
     implementation dependencie.getui
 

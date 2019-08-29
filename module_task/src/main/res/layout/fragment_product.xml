@@ -6,11 +6,20 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="我是产品"
-        android:textColor="@color/color_red_fb5a5c" />
+    <com.xiaodou.common.widget.TitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:visibility="visible">
 
+    </com.xiaodou.common.widget.TitleBar>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="我是任务"
+        android:textColor="@color/color_red_fb5a5c" />
 
 </LinearLayout>

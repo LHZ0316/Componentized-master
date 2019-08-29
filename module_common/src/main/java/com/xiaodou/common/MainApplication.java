@@ -24,7 +24,7 @@ public class MainApplication extends BaseApplication {
         mApplication = this;
 
         //初始化api环境
-        BaseApi.host(BaseApi.HostType.TEST_150, true);
+        BaseApi.host(BaseApi.HostType.TEST_150, false);
 
         // 初始化shareSDK分享
         MobSDK.init(this, "2698513ea990", "33e2857eb692b77079ccd5cc28799eea");

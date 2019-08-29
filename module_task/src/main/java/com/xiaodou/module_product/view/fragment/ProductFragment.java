@@ -1,13 +1,19 @@
 package com.xiaodou.module_product.view.fragment;
 
+import android.graphics.Color;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 
 import com.lhz.android.libBaseCommon.base.RouterPath;
 import com.lhz.android.libBaseCommon.mvp_senior.annotations.CreatePresenterAnnotation;
+import com.xiaodou.common.widget.TitleBar;
 import com.xiaodou.module_product.base.BaseProductFragment;
 import com.xiaodou.module_product.contract.IProductFragmentContract;
 import com.xiaodou.module_product.presenter.ProductFragmentPresenter;
 import com.xiaodou.module_task.R;
+import com.xiaodou.module_task.R2;
+
+import butterknife.BindView;
 
 /**
  * lhz  on 2019/8/21.
@@ -27,10 +33,13 @@ public class ProductFragment extends BaseProductFragment<IProductFragmentContrac
         return R.layout.fragment_product;
     }
 
+    @BindView(R2.id.titleBar)
+    TitleBar titleBar;
     @Override
     protected void initView() {
-
+        titleBar.setBackground(Color.GREEN);
     }
+
 
 
     @Override

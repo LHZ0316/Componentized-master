@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import com.lhz.android.libBaseCommon.base.BaseMvpActivity;
 import com.lhz.android.libBaseCommon.base.BasePresenter;
 import com.lhz.android.libBaseCommon.base.IBaseView;
-import com.lhz.android.libBaseUtils.utils.StatusBarUtils;
+import com.lhz.android.libBaseUtils.utils.StatusBar;
 
 
 /**
@@ -21,7 +21,7 @@ public abstract class BaseProductActivity<V extends IBaseView, P extends BasePre
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtils.setTransparent(this);//沉趁式  透明状态栏
+        StatusBar.setTransparent(this);//沉趁式  透明状态栏
 
     }
 }

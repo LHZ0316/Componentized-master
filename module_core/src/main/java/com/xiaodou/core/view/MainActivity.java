@@ -22,7 +22,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.lhz.android.libBaseCommon.base.BaseFragment;
 import com.lhz.android.libBaseCommon.base.RouterPath;
 import com.lhz.android.libBaseCommon.mvp_senior.annotations.CreatePresenterAnnotation;
-import com.xiaodou.common.view.BaseStatusBarActivity;
+import com.xiaodou.core.base.BaseMainActivity;
 import com.xiaodou.core.contract.IMainContract;
 import com.xiaodou.core.presenter.MainPresenter;
 import com.xiaodou.common.R;
@@ -39,7 +39,7 @@ import butterknife.BindView;
 @SuppressLint("Registered")
 @CreatePresenterAnnotation(MainPresenter.class)
 @Route(path = RouterPath.MAIN_ACTIVITY)
-public class MainActivity extends BaseStatusBarActivity<IMainContract.View, MainPresenter>
+public class MainActivity extends BaseMainActivity<IMainContract.View, MainPresenter>
         implements BottomNavigationView.OnNavigationItemSelectedListener, IMainContract.View {
 
     @BindView(R2.id.fragment_content)

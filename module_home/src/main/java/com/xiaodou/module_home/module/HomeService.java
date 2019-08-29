@@ -1,4 +1,4 @@
-package com.xiaodou.module_home.base;
+package com.xiaodou.module_home.module;
 
 import com.lhz.android.libBaseCommon.base.BaseResponse;
 

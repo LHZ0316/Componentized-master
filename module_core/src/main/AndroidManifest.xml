@@ -60,7 +60,10 @@
         </activity>
 
 
-        <activity android:name=".view.MainActivity" />
+        <activity
+            android:name=".view.MainActivity"
+            android:launchMode="singleTask" />
+
         <activity android:name=".view.SplashActivity" />
 
     </application>

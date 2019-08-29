@@ -1,16 +1,28 @@
 package debug;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.lhz.android.libBaseCommon.mvp_senior.annotations.CreatePresenterAnnotation;
 import com.xiaodou.module_home.R;
+import com.xiaodou.module_home.base.BaseHomeActivity;
+import com.xiaodou.module_home.contract.IHomeFragmentContract;
+import com.xiaodou.module_home.presenter.HomeFragmentPresenter;
 
-
-public class HomeActivity extends AppCompatActivity {
+@CreatePresenterAnnotation(HomeFragmentPresenter.class)
+public class HomeActivity extends BaseHomeActivity implements IHomeFragmentContract.View{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+    public int setLayoutId() {
+        return R.layout.activity_home;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected void initData() {
+
     }
 }

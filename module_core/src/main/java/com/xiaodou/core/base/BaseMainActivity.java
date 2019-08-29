@@ -1,10 +1,9 @@
-package com.xiaodou.common.view;
+package com.xiaodou.core.base;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -19,7 +18,7 @@ import com.lhz.android.libBaseCommon.base.BasePresenter;
 import com.lhz.android.libBaseCommon.base.IBaseView;
 import com.lhz.android.libBaseCommon.utils.Utils;
 import com.lhz.android.libBaseUtils.utils.DownLoadUtil;
-import com.lhz.android.libBaseUtils.utils.StatusBarUtils;
+import com.lhz.android.libBaseUtils.utils.StatusBar;
 import com.lhz.android.libBaseUtils.utils.ToastUtils;
 import com.xiaodou.common.R;
 
@@ -31,13 +30,13 @@ import java.io.File;
  * 适配MainActivity当中的Fragment沉趁式透明状态栏
  */
 
-public abstract class BaseStatusBarActivity<V extends IBaseView, P extends BasePresenter<V>> extends BaseMvpActivity<V, P> {
+public abstract class BaseMainActivity<V extends IBaseView, P extends BasePresenter<V>> extends BaseMvpActivity<V, P> {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //设置沉浸式，透明状态栏,针对一个activity对多个fragment
-        StatusBarUtils.setBarColorFragment(this, Color.TRANSPARENT);
+        StatusBar.setTransparent(this);
     }
 
     /**

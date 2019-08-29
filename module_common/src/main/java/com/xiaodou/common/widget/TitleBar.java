@@ -174,7 +174,7 @@ public class TitleBar extends LinearLayout {
         mLine.setVisibility(visibility);
     }
 
-    private void setBackground(int background) {
+    public void setBackground(int background) {
         mView.setBackgroundColor(background);
     }
 

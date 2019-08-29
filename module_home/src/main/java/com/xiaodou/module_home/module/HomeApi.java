@@ -1,4 +1,4 @@
-package com.xiaodou.module_home.base;
+package com.xiaodou.module_home.module;
 
 /**
  * lhz  on 2019/8/21.
