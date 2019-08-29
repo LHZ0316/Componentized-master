@@ -6,7 +6,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 
 import com.lhz.android.libBaseCommon.base.RouterPath;
 import com.lhz.android.libBaseCommon.mvp_senior.annotations.CreatePresenterAnnotation;
-import com.xiaodou.common.widget.TitleBar;
+import com.lhz.android.libBaseUtils.widget.titleBar.CommonTitleBar;
 import com.xiaodou.module_product.base.BaseProductFragment;
 import com.xiaodou.module_product.contract.IProductFragmentContract;
 import com.xiaodou.module_product.presenter.ProductFragmentPresenter;
@@ -34,10 +34,10 @@ public class ProductFragment extends BaseProductFragment<IProductFragmentContrac
     }
 
     @BindView(R2.id.titleBar)
-    TitleBar titleBar;
+    CommonTitleBar titleBar;
     @Override
     protected void initView() {
-        titleBar.setBackground(Color.GREEN);
+        titleBar.setBackgroundColor(Color.GREEN);
     }
 
 

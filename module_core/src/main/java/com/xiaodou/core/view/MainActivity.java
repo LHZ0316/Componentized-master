@@ -121,7 +121,7 @@ public class MainActivity extends BaseMainActivity<IMainContract.View, MainPrese
             //当前fragment不相等再显示
             if (mCurrentFragment != fragment) {
                 transaction.hide(mCurrentFragment).show(fragment).commit();
-                Log.e(TAG, "被隐藏: " + fragment);
+                Log.e(TAG, "被打开: " + fragment);
             }
         }
         mCurrentFragment = fragment;
@@ -144,36 +144,6 @@ public class MainActivity extends BaseMainActivity<IMainContract.View, MainPrese
 
         addFragment(fragment, R.id.fragment_content);
         mCurrentFragment = mHomeFragment;
-    }
-
-
-    /**
-     * 禁止系统BottomNavigationView 默认的动画效果
-     * 返回值：ClipboardManager
-     *
-     * @param view
-     */
-    @SuppressLint("RestrictedApi")
-    public static void disableShiftMode(BottomNavigationView view) {
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
-        try {
-            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
-            shiftingMode.setAccessible(true);
-            shiftingMode.setBoolean(menuView, false);
-            shiftingMode.setAccessible(false);
-            for (int i = 0; i < menuView.getChildCount(); i++) {
-                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
-                //noinspection RestrictedApi
-//                item.setShiftingMode(false);
-                // set once again checked value, so view will be updated
-                //noinspection RestrictedApi
-                item.setChecked(item.getItemData().isChecked());
-            }
-        } catch (NoSuchFieldException e) {
-            Log.e("BNVHelper", "Unable to get shift mode field", e);
-        } catch (IllegalAccessException e) {
-            Log.e("BNVHelper", "Unable to change value of shift mode", e);
-        }
     }
 
     @Override
@@ -224,5 +194,36 @@ public class MainActivity extends BaseMainActivity<IMainContract.View, MainPrese
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    ////////////////////////////////////////////////////
+
+    /**
+     * 禁止系统BottomNavigationView 默认的动画效果
+     * 返回值：ClipboardManager
+     *
+     * @param view
+     */
+    @SuppressLint("RestrictedApi")
+    public static void disableShiftMode(BottomNavigationView view) {
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
+        try {
+            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+            shiftingMode.setAccessible(true);
+            shiftingMode.setBoolean(menuView, false);
+            shiftingMode.setAccessible(false);
+            for (int i = 0; i < menuView.getChildCount(); i++) {
+                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+                //noinspection RestrictedApi
+//                item.setShiftingMode(false);
+                // set once again checked value, so view will be updated
+                //noinspection RestrictedApi
+                item.setChecked(item.getItemData().isChecked());
+            }
+        } catch (NoSuchFieldException e) {
+            Log.e("BNVHelper", "Unable to get shift mode field", e);
+        } catch (IllegalAccessException e) {
+            Log.e("BNVHelper", "Unable to change value of shift mode", e);
+        }
     }
 }

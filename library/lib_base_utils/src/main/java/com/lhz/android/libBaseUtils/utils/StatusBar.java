@@ -109,7 +109,7 @@ public class StatusBar {
             layoutParams.height = StatusBar.getStatusBarHeight(activity);
             view.setLayoutParams(layoutParams);
 
-            view.setBackgroundColor(activity.getResources().getColor(R.color.colorMain));
+            view.setBackgroundColor(activity.getResources().getColor(R.color.colorTitle));
         }
     }
 

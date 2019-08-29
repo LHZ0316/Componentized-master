@@ -3,6 +3,6 @@
 
     <color name="color_1">#333333</color>
     <color name="color_2">#fb5a5c</color>
+    <color name="colorTitle">#a0000000</color>
     <color name="colorMain">#6AA2FF</color>
-
 </resources>

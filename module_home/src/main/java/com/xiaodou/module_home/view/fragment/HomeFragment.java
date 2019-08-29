@@ -2,10 +2,12 @@ package com.xiaodou.module_home.view.fragment;
 
 
 import android.view.View;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.lhz.android.libBaseCommon.base.RouterPath;
 import com.lhz.android.libBaseCommon.mvp_senior.annotations.CreatePresenterAnnotation;
+import com.lhz.android.libBaseUtils.widget.TitleBar;
 import com.xiaodou.module_home.R;
 import com.xiaodou.module_home.R2;
 import com.xiaodou.module_home.base.BaseHomeFragment;
@@ -23,6 +25,9 @@ public class HomeFragment extends BaseHomeFragment<IHomeFragmentContract.View, H
         implements IHomeFragmentContract.View {
     @BindView(R2.id.view_status_bar)
     View mViewStatusBar;
+    @BindView(R2.id.myTitleBar)
+    TitleBar myTitleBar;
+
 
     @Override
     public int getFragmentLayout() {
@@ -32,6 +37,17 @@ public class HomeFragment extends BaseHomeFragment<IHomeFragmentContract.View, H
     @Override
     protected void initView() {
 
+        myTitleBar.setTitle("首页\n副标题");
+        myTitleBar.setLeftText("返回");
+//        myTitleBar.setTitleColor(Color.BLACK);
+//        myTitleBar.setSubTitleColor(Color.BLACK);
+//        myTitleBar.setActionTextColor(Color.BLACK);
+        myTitleBar.addAction(new TitleBar.TextAction("发布") {
+            @Override
+            public void performAction(View view) {
+                Toast.makeText(getHoldingActivity(), "点击了发布", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
