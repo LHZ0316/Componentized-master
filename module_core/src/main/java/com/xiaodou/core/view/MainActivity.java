@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -64,9 +65,8 @@ public class MainActivity extends BaseMainActivity<IMainContract.View, MainPrese
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setHaveTitle(false);
         super.onCreate(savedInstanceState);
-
-
     }
 
 

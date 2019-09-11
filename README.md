@@ -1,8 +1,27 @@
 # MvpFrame
 
 lib_base_common  基类库
+* MVP基类Activity
+* MVP基类Fragment
+* 统一的网络请求
+* 统一的eventBus
+* 统一的数据库
+
+* 要学的 MVP 、 MVVM 、jetPack 、flutter 、kotlin 、小程序
+* 我好难啊~~~
 
 lib_base_utils  工具类库
+* 统一的状态栏
+* 统一的标题栏
+* 统一的加载框
+* 统一的空布局
+* 统一的弹框
+* 统一的屏幕适配、权限适配、版本适配
+* 统一的版本升级
+* 统一的拍照剪裁
+* 统一的多渠道打包
+* 统一的崩溃收集
+* 统一的音视频播放
 
 lib_thermal_repair 热更新库
 
@@ -11,14 +30,30 @@ lib_share_push 分享库
 # 知识点
 组件化，Mvp框架，retrofit2，rxJava2，rxLifecycle2
 
+Material Design 常用控件
+
+* SwipeRefreshLayout
+* Toolbar
+* TabLayout
+* DrawerLayout
+* NavigationView
+* BottomNavigationView
+* SwitchCompat
+* FloatingActionButton
+* SnackBar
+* CoordinatorLayout
+* CollapsingToolbarLayout
+* AppBarLayout
+* TextInputLayout
+* NestedScrollView
+* BottomSheet
+* Chip、ChipGroups、ChipDrawable
+
+
 # 第三方SDK
-友盟-统计
-shareSDK-分享
-bugly-热修复
-个推-消息推送
+友盟-统计，shareSDK-分享，Bugly-热修复，个推-消息推送
 
 # 使用方法
-
 config.gradle的配置
 
 MVP架构的使用

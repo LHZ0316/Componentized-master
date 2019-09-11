@@ -1,4 +1,4 @@
-package com.lhz.android.libBaseUtils.utils;
+package com.lhz.android.libBaseCommon.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -16,7 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.lhz.android.libBaseUtils.R;
+import com.lhz.android.libBaseCommon.R;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
