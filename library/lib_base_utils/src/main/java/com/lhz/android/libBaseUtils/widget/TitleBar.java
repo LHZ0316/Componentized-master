@@ -81,10 +81,10 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
 
         mLeftText.setTextSize(DEFAULT_ACTION_TEXT_SIZE);
         mLeftText.setTextColor(context.getResources().getColor(R.color.colorTitle));
-        mLeftText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.comm_titlebar_back_normal, 0, 0, 0);
+        mLeftText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_back_black, 0, 0, 0);
         mLeftText.setSingleLine();
         mLeftText.setGravity(Gravity.CENTER_VERTICAL);
-        mLeftText.setPadding(mOutPadding + mActionPadding, 0, mOutPadding, 0);
+        mLeftText.setPadding(0, 0, mOutPadding, 0);
 
         mCenterText = new TextView(context);
         mSubTitleText = new TextView(context);
@@ -92,7 +92,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
         mCenterLayout.addView(mSubTitleText);
 
         mCenterLayout.setGravity(Gravity.CENTER);
-        mCenterText.setText(context.getResources().getString(R.string.titlebar_name_def));
+        mCenterText.setText(context.getResources().getString(R.string.titleBar_name_def));
         mCenterText.setTextSize(DEFAULT_MAIN_TEXT_SIZE);
         mCenterText.setTextColor(context.getResources().getColor(R.color.colorTitle));
         mCenterText.setSingleLine();
@@ -359,7 +359,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
             text.setTextSize(DEFAULT_ACTION_TEXT_SIZE);
             if (mActionTextColor != 0) {
                 text.setTextColor(mActionTextColor);
-            }else{
+            } else {
                 text.setTextColor(getResources().getColor(R.color.colorTitle));
             }
             view = text;

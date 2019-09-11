@@ -7,7 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.lhz.android.libBaseCommon.base.RouterPath;
 import com.lhz.android.libBaseCommon.mvp_senior.annotations.CreatePresenterAnnotation;
 import com.lhz.android.libBaseUtils.utils.StatusBar;
-import com.lhz.android.libBaseUtils.widget.titleBar.CommonTitleBar;
+import com.lhz.android.libBaseUtils.widget.TitleBar;
 import com.xiaodou.module_find.R2;
 import com.xiaodou.module_find.R;
 import com.xiaodou.module_found.base.BaseFoundFragment;
@@ -28,13 +28,13 @@ public class FoundFragment extends BaseFoundFragment<IFoundFragmentContract.View
     private static final String TAG = "FoundFragment";
     @BindView(R2.id.view_status_bar)
     View mViewStatusBar;
-    @BindView(R2.id.titleBar)
-    CommonTitleBar titleBar;
+    @BindView(R2.id.myTitleBar)
+    TitleBar myTitleBar;
 
     @Override
     protected void initView() {
         StatusBar.setStatusViewAttr(mViewStatusBar, getHoldingActivity(), R.color.color_blue_6AA2FF);
-        titleBar.setBackgroundColor(Color.parseColor("#6AA2FF"));
+        myTitleBar.setBackgroundColor(Color.parseColor("#6AA2FF"));
     }
 
 

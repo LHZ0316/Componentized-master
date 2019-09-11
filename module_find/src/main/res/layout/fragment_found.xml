@@ -12,13 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
-    <com.lhz.android.libBaseUtils.widget.titleBar.CommonTitleBar
-        android:id="@+id/titleBar"
+    <com.lhz.android.libBaseUtils.widget.TitleBar
+        android:id="@+id/myTitleBar"
+        android:visibility="visible"
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:visibility="visible">
-
-    </com.lhz.android.libBaseUtils.widget.titleBar.CommonTitleBar>
+        android:layout_height="@dimen/title_bar_height"/>
 
 
     <TextView

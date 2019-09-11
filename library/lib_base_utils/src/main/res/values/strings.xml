@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">lib_base_utils</string>
-    <string name="titlebar_name_def">标题</string>
-    <string name="titlebar_search_hint">Search</string>
+    <string name="titleBar_name_def">标题</string>
 </resources>
