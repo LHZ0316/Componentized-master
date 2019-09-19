@@ -2,6 +2,7 @@ package com.xiaodou.core.contract;
 
 import com.lhz.android.libBaseCommon.base.BasePresenter;
 import com.lhz.android.libBaseCommon.base.IBaseView;
+import com.lhz.android.libBaseCommon.https.RequestParam;
 import com.xiaodou.core.view.LaunchActivity;
 import com.xiaodou.core.view.MainActivity;
 
@@ -20,7 +21,7 @@ public interface IMainContract {
     }
 
     abstract class Presenter extends BasePresenter<View> {
-        public abstract void httpTest();
+        public abstract void httpTest(RequestParam requestParam);
     }
 
     abstract class LaunchPresenter extends BasePresenter<LaunchView> {

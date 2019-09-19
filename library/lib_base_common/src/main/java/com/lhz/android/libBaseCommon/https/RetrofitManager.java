@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitManager {
     /**
-     * 保存一个retrofit的实例，通过吸（baseUrl来获取）
+     * 保存一个retrofit的实例，通过（baseUrl来获取）
      */
     private HashMap<String, Retrofit> mRetrofitHashMap = new HashMap<>();
 
@@ -45,13 +45,13 @@ public class RetrofitManager {
      *
      * @return Retrofit
      */
-    private Retrofit getRetrofit(String baseurl) {
+    private Retrofit getRetrofit(String baseUrl) {
         Retrofit retrofit;
 
-        if (mRetrofitHashMap.containsKey(baseurl)) {
-            retrofit = mRetrofitHashMap.get(baseurl);
+        if (mRetrofitHashMap.containsKey(baseUrl)) {
+            retrofit = mRetrofitHashMap.get(baseUrl);
         } else {
-            retrofit = createrRetrofit(baseurl);
+            retrofit = createRetrofit(baseUrl);
         }
 
         return retrofit;
@@ -62,32 +62,37 @@ public class RetrofitManager {
      *
      * @return Retrofit
      */
-    private Retrofit createrRetrofit(String baseurl) {
+    private Retrofit createRetrofit(String baseUrl) {
 
         OkHttpClient httpClient = new OkHttpClient().newBuilder()
                 .readTimeout(DEFAULT_MILLISECONDS, TimeUnit.SECONDS)
                 .connectTimeout(DEFAULT_MILLISECONDS, TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_MILLISECONDS, TimeUnit.SECONDS)
-                .addNetworkInterceptor(new InterceptorUtil().HeaderInterceptor(BaseApplication.getInstance()))//添加其他拦截器
+//                .addInterceptor(InterceptorUtil.HeadersInterceptor(BaseApplication.getInstance()))
+                .addInterceptor(new InterceptorUtil().HeaderInterceptor(BaseApplication.getInstance()))// 添加请求头
                 .addInterceptor(InterceptorUtil.LogInterceptor())//添加日志拦截器
                 .retryOnConnectionFailure(true)
                 .build();
 
-        return new Retrofit.Builder()
-                .baseUrl(baseurl)
+        Retrofit build = new Retrofit.Builder()
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClient)
                 .build();
+
+        mRetrofitHashMap.put(baseUrl, build);
+        return build;
+
     }
 
 
     /**
-     *根据各模块业务接口 获取不同的retrofit service接口对象
+     * 根据各模块业务接口 获取不同的retrofit service接口对象
      */
     public <T> T getRetrofitService(Class<T> cls) {
 
-        return createrRetrofit(BaseApi.getBaseUrl()).create(cls);
+        return createRetrofit(BaseApi.getBaseUrl()).create(cls);
     }
 
 

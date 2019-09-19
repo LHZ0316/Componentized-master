@@ -5,9 +5,13 @@ package com.lhz.android.libBaseCommon.base;
  */
 
 public class BaseResponse<T> {
-    private int code;         //成功 = 200
+    private int code;         //成功 = 0
     private String msg;
     private T data;
+    // ---------------------
+    private boolean retOk;
+    private String retcode;
+    private String message;
 
     public int getCode() {
         return code;
@@ -33,5 +37,28 @@ public class BaseResponse<T> {
         this.data = data;
     }
 
+    public boolean getRetOk() {
+        return retOk;
+    }
+
+    public void setRetOk(boolean retOk) {
+        this.retOk = retOk;
+    }
+
+    public String getRetcode() {
+        return retcode;
+    }
+
+    public void setRetcode(String retcode) {
+        this.retcode = retcode;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
 }

@@ -5,15 +5,10 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.lhz.android.libBaseCommon.base.BaseApplication;
 import com.lhz.android.libBaseCommon.base.BaseResponse;
-import com.lhz.android.libBaseCommon.base.RouterPath;
-import com.lhz.android.libBaseCommon.eventbus.EventType;
 import com.lhz.android.libBaseCommon.https.exception.ExceptionUtil;
-
-
-import org.greenrobot.eventbus.EventBus;
+import com.lhz.android.libBaseCommon.https.exception.RxExceptionUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -36,13 +31,15 @@ public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
 
     @Override
     public final void onNext(BaseResponse<T> tBaseResponse) {
-        Log.d(TAG, "服务器返回的code: " + tBaseResponse.getCode());
-        switch (tBaseResponse.getCode()) {
-            case 200:
+        Log.w(TAG, "服务器返回的code: " + tBaseResponse.getCode());
+        switch (Integer.parseInt(tBaseResponse.getRetcode())) {
+            case 0: // 请求成功
                 onSuccess(tBaseResponse.getData());
                 break;
             default:
-                onFailure(new Exception(tBaseResponse.getMsg()), tBaseResponse.getCode(), tBaseResponse.getMsg());
+                // 接口错误
+                onFailure(new Exception(tBaseResponse.getMessage()),
+                        Integer.parseInt(tBaseResponse.getRetcode()), tBaseResponse.getMessage());
                 break;
         }
     }
@@ -50,8 +47,10 @@ public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
     @Override
     public void onError(@NonNull Throwable e) {
         int code = ExceptionUtil.exceptionHandler(e);
-        Log.d(TAG, "错误信息---" + e.getMessage() + "-----错误码: " + code);
-        String msg = ExceptionUtil.getMsg(code);
+        Log.e(TAG, "错误信息---" + e.getMessage() + "-----错误码: " + code);
+        String msg = ExceptionUtil.getMsg(code, e.getMessage());
+        RxExceptionUtil.exceptionHandler(e);
+        // 接口失败
         onFailure(e, code, msg);
     }
 
@@ -61,23 +60,22 @@ public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
 
     public abstract void onSuccess(T result);
 
-    public void onFailure(Throwable e, int code, String errorMsg) {
-        Log.d(TAG, "onFailure:  什么错误： " + e + "-------错误信息:" + errorMsg);
+    /**
+     * 请求失败后的一些处理
+     * 例如：未登录，跳转到登陆界面，eventBus发送通知
+     */
+    private void onFailure(Throwable e, int code, String errorMsg) {
+        Log.e(TAG, "onFailure:  错误提示： " + e + "-------错误信息:" + errorMsg);
         if (code == 401) {
-            EventBus.getDefault().post(new EventType(EventType.EVENT_NO_LOGIN));
+            // 401需要登录
             if (e instanceof HttpException) {
                 HttpException httpException = (HttpException) e;
                 HttpUrl url = httpException.response().raw().request().url();
                 String s = String.valueOf(url);
-                Log.d(TAG, "onFailure: " + s);
-                if (!s.contains("api/account/index")) {
-                    ARouter.getInstance().build(RouterPath.LOGIN_REGISTER_ACTIVITY).navigation();
-                }
+                Log.e(TAG, "onFailure: " + s);
             }
-        } else if (code == 402) {//实名认证
-            EventBus.getDefault().post(new EventType(EventType.TO_REA_NAME_AUTHENTICATION));
         } else {
-            Toast.makeText(BaseApplication.getInstance(),errorMsg,Toast.LENGTH_SHORT).show();
+            Toast.makeText(BaseApplication.getInstance(), errorMsg, Toast.LENGTH_SHORT).show();
         }
     }
 

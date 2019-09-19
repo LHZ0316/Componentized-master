@@ -17,6 +17,7 @@ import retrofit2.HttpException;
  */
 public class RxExceptionUtil {
     private static final String TAG = "RxExceptionUtil";
+
     public static String exceptionHandler(Throwable e) {
         String errorMsg = "未知错误";
         if (e instanceof UnknownHostException) {
@@ -35,13 +36,13 @@ public class RxExceptionUtil {
         return errorMsg;
     }
 
-    private static String convertStatusCode(HttpException httpException){
-        Log.d(TAG, "convertStatusCode: "+httpException.code());
+    private static String convertStatusCode(HttpException httpException) {
+        Log.d(TAG, "convertStatusCode: " + httpException.code());
         String msg;
         if (httpException.code() >= 500 && httpException.code() < 600) {
             msg = "服务器处理请求出错";
         } else if (httpException.code() >= 400 && httpException.code() < 500) {
-            if(httpException.code() == 401){
+            if (httpException.code() == 401) {
 //                throw new UnLoginException();
                 msg = "请重新登录";
             } else {

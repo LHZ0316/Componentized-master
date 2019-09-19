@@ -6,6 +6,8 @@ import android.support.multidex.MultiDex;
 import com.lhz.android.libBaseCommon.base.BaseApi;
 import com.lhz.android.libBaseCommon.base.BaseApplication;
 import com.mob.MobSDK;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 import com.xiaodou.common.widget.lock.LockPatternUtils;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
@@ -24,7 +26,7 @@ public class MainApplication extends BaseApplication {
         mApplication = this;
 
         //初始化api环境
-        BaseApi.host(BaseApi.HostType.TEST_150, false);
+        BaseApi.host(BaseApi.HostType.TEST_1, true);
 
         // 初始化shareSDK分享
         MobSDK.init(this, "2698513ea990", "33e2857eb692b77079ccd5cc28799eea");
@@ -32,6 +34,14 @@ public class MainApplication extends BaseApplication {
         // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
         // 调试时，将第三个参数改为true
         Bugly.init(this, "fce6ddb348", true);
+
+        // 打印日志
+        Logger.addLogAdapter(new AndroidLogAdapter() {
+            @Override
+            public boolean isLoggable(int priority, String tag) {
+                return BuildConfig.DEBUG;
+            }
+        });
     }
 
     /**

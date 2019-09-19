@@ -75,6 +75,12 @@ MVP架构的使用
                             .navigation();
 
 封装的网络框架的使用
+* import retrofit2.http.Body;
+* import retrofit2.http.Field;
+* import retrofit2.http.FormUrlEncoded;
+* import retrofit2.http.Path;
+* import retrofit2.http.FieldMap;
+* import retrofit2.http.Query;
 
 eventbus的使用
 

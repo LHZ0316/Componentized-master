@@ -42,12 +42,12 @@ public class ExceptionUtil {
         return code;
     }
 
-    private static int convertCode(HttpException httpException){
+    private static int convertCode(HttpException httpException) {
         int code;
         if (httpException.code() >= 500 && httpException.code() < 600) {
             code = ServiceException;
         } else if (httpException.code() >= 400 && httpException.code() < 500) {
-            if(httpException.code() == 401){
+            if (httpException.code() == 401) {
                 code = NoLoginException;
             } else {
                 code = CustomerException;
@@ -61,9 +61,9 @@ public class ExceptionUtil {
         return code;
     }
 
-    public static String getMsg(int code){
-        String errorMsg = "网络不给力";
-        switch (code){
+    public static String getMsg(int code, String message) {
+        String errorMsg = message;
+        switch (code) {
             case UnknownHostException:
                 errorMsg = "网络不给力";
                 break;

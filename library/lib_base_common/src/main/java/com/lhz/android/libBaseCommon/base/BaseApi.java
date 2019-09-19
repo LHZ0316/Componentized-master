@@ -1,5 +1,11 @@
 package com.lhz.android.libBaseCommon.base;
 
+import com.google.gson.Gson;
+import com.lhz.android.libBaseCommon.https.RequestParam;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+
 /**
  * lhz  on 2019/8/21.
  * <p>
@@ -9,49 +15,51 @@ package com.lhz.android.libBaseCommon.base;
 public class BaseApi {
 
     public enum HostType {
-        TEST_150,
-        TEST_138,
-        TEST_146,
-        TEST_245,
-        TEST_10,
-        TEST_145
+        TEST_1,
+        TEST_2,
+        ON_LINE
     }
 
-    private static String sHost;
+    private static String mApiHost;
+    private static String BASE_URL_API = "https://mapi-2020.moycp.com/";
+    private static String IMG_URL_API = "http://7xigj3.com1.z0.glb.clouddn.com/";
 
     public static void host(HostType hostType, boolean isDebug) {
         if (isDebug) {
             switch (hostType) {
-                case TEST_150:
-                    sHost = "http://192.168.0.150:8185/";//测试环境
+                case TEST_1:
+                    mApiHost = "http://service.dev.51xiaodou.com:8020/";//测试环境一
                     break;
-                case TEST_138:
-                    sHost = "http://192.168.0.138:8185/";//军哥
+                case TEST_2:
+                    mApiHost = "https://www.wanandroid.com/";//测试环境二
                     break;
-                case TEST_146:
-                    sHost = "http://192.168.0.146:8185/";//陈小兵
-                    break;
-                case TEST_245:
-                    sHost = "http://192.168.0.245:80/";//赵姑娘
-                    break;
-                case TEST_10:
-                    sHost = "http://192.168.0.10:8185/";//张全耸
-                    break;
-                case TEST_145:
-                    sHost = "http://192.168.0.145:8185/";//吕月月
+                case ON_LINE:
+                    mApiHost = "";//线上环境
                     break;
                 default:
-                    sHost = "http://192.168.0.150:8185/";//测试环境
+                    mApiHost = "http://service.dev.51xiaodou.com:8020/";//测试环境
                     break;
             }
         } else {
-            sHost = "http://api.ibrjf.com/";
+            mApiHost = BaseApi.BASE_URL_API; // 线上环境
         }
     }
 
+    /**
+     * 获取主地址
+     */
     public static String getBaseUrl() {
-        return sHost == null ? "http://api.ibrjf.com/api/" : sHost + "api/";
+        return mApiHost == null ? BaseApi.BASE_URL_API : mApiHost;
     }
 
-
+    /**
+     * POST请求，带参数
+     * 将请求参数转化成RequestBody
+     * @param map
+     */
+    public static RequestBody getRequestBody(RequestParam map) {
+        Gson gson = new Gson();
+        String paramMap = gson.toJson(map);
+        return RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), paramMap);
+    }
 }

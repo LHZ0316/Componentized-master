@@ -22,6 +22,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.lhz.android.libBaseCommon.base.BaseFragment;
 import com.lhz.android.libBaseCommon.base.RouterPath;
+import com.lhz.android.libBaseCommon.https.RequestParam;
 import com.lhz.android.libBaseCommon.mvp_senior.annotations.CreatePresenterAnnotation;
 import com.xiaodou.core.base.BaseMainActivity;
 import com.xiaodou.core.contract.IMainContract;
@@ -76,7 +77,16 @@ public class MainActivity extends BaseMainActivity<IMainContract.View, MainPrese
 
     @Override
     protected void initData() {
-        getMvpPresenter().httpTest();//网络框架的使用
+        RequestParam requestParam = new RequestParam();
+        requestParam.addParameter("phoneNum", "15810733266");
+        requestParam.addParameter("pwd", "123456");
+        requestParam.addParameter("registrationId", "160a3797c85f6410840");
+        requestParam.addParameter("platform", "telephone");
+        requestParam.addParameter("uniqueId", null);
+        requestParam.addParameter("lat", "39.979885");
+        requestParam.addParameter("lng", "116.417365");
+        requestParam.addParameter("packageTag", "xd_test");
+        getMvpPresenter().httpTest(requestParam);//网络框架的使用
     }
 
     @Override
