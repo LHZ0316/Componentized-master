@@ -12,17 +12,17 @@ import com.lhz.android.libBaseCommon.https.public_parameters.HeadersPublic;
 public class BaseSP {
 
     /**
-     * 渠道号
+     * 渠道信息
      */
     public static void setChannel(Context context, String supportBankUrl) {
-        BaseSPUtils.put(context, HeadersPublic.CHANNEL, supportBankUrl);
+        BaseSPUtil.put(context, HeadersPublic.CHANNEL, supportBankUrl);
     }
 
     /**
-     * 渠道号
+     * 渠道信息
      */
     public static String getChannel(Context context) {
-        return (String) BaseSPUtils.get(context, HeadersPublic.CHANNEL, "0");
+        return (String) BaseSPUtil.get(context, HeadersPublic.CHANNEL, "0");
     }
 
 }

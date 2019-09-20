@@ -12,7 +12,7 @@ import java.util.Map;
  * SharedPreferences 工具类
  */
 
-public class BaseSPUtils {
+public class BaseSPUtil {
     /**
      * 保存在手机里面的文件名
      */

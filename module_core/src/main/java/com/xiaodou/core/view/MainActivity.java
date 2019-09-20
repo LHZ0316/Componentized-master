@@ -22,7 +22,9 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.lhz.android.baseUtils.utils.ContextUtils;
 import com.lhz.android.baseUtils.utils.KProgressUtil;
+import com.lhz.android.baseUtils.utils.ToastUtils;
 import com.lhz.android.baseUtils.widget.kprogresshud.KProgressHUD;
 import com.lhz.android.libBaseCommon.base.BaseFragment;
 import com.lhz.android.libBaseCommon.base.RouterPath;
@@ -97,9 +99,10 @@ public class MainActivity extends BaseMainActivity<IMainContract.View, MainPrese
         });
         */
 
-        KProgressUtil.newInstance().showProgress(this);
+//        KProgressUtil.newInstance().showProgress(this);
 
 
+        ToastUtils.showLongToast("nihao");
         RequestParam requestParam = new RequestParam();
         requestParam.addParameter("phoneNum", "15810733266");
         requestParam.addParameter("pwd", "123456");

@@ -11,12 +11,11 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.lhz.android.libBaseCommon.BuildConfig;
+import com.lhz.android.libBaseCommon.base.BaseApplication;
 import com.lhz.android.libBaseCommon.https.public_parameters.HeadersPublic;
+import com.lhz.android.libBaseCommon.utils.BaseSPUtil;
 import com.lhz.android.libBaseCommon.utils.MD5Util;
-import com.lhz.android.libBaseCommon.utils.BaseSPUtils;
 import com.lhz.android.libBaseCommon.utils.Utils;
 import com.orhanobut.logger.Logger;
 
@@ -28,7 +27,6 @@ import java.net.SocketException;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -78,9 +76,9 @@ public class InterceptorUtil {
                 String timestamp = String.valueOf(System.currentTimeMillis());
                 Request request = chain.request().newBuilder()
                         .addHeader(HeadersPublic.MODULE, HeadersPublic.MODULE_APP)
-                        .addHeader(HeadersPublic.SESSION_TOKEN, String.valueOf(BaseSPUtils.get(context, HeadersPublic.TOKEN, "")))
+                        .addHeader(HeadersPublic.SESSION_TOKEN, String.valueOf(BaseSPUtil.get(context, HeadersPublic.TOKEN, "")))
                         .addHeader(HeadersPublic.DEVICE_ID, deviceId)
-                        .addHeader(HeadersPublic.CLIENT_IP, getLocalIpAddress(Utils.getContext()))
+                        .addHeader(HeadersPublic.CLIENT_IP, getLocalIpAddress(BaseApplication.getInstance()))
                         .addHeader(HeadersPublic.CLIENT_TYPE, HeadersPublic.TYPE)
                         .addHeader(HeadersPublic.VERSION, String.valueOf(BuildConfig.VERSION_NAME))
                         .addHeader(HeadersPublic.TRACE_ID, getSigna(timestamp)).build();
@@ -134,7 +132,7 @@ public class InterceptorUtil {
      * 请求方法版本号：method_version   接口无多个版本方法，可以为空
      * 渠道名称：channel        BaseSP.getChannel(context)
      * 渠道签名：channelSigna   getSigna(BaseSP.getChannel(context))
-     * 登录标识：token			 String.valueOf(BaseSPUtils.get(context, HeadersPublic.TOKEN, ""))
+     * 登录标识：token			 String.valueOf(BaseSPUtil.get(context, HeadersPublic.TOKEN, ""))
      * 请求签名：sign
      * 时间戳：timestamp
      * 设备序列号：deviceId
@@ -153,9 +151,9 @@ public class InterceptorUtil {
 
         // 请求头参数
         request.addHeader(HeadersPublic.MODULE, HeadersPublic.MODULE_APP);
-        request.addHeader(HeadersPublic.SESSION_TOKEN, String.valueOf(BaseSPUtils.get(context, HeadersPublic.TOKEN, "")));
+        request.addHeader(HeadersPublic.SESSION_TOKEN, String.valueOf(BaseSPUtil.get(context, HeadersPublic.TOKEN, "")));
         request.addHeader(HeadersPublic.DEVICE_ID, deviceId);
-        request.addHeader(HeadersPublic.CLIENT_IP, getLocalIpAddress(Utils.getContext()));
+        request.addHeader(HeadersPublic.CLIENT_IP, getLocalIpAddress(BaseApplication.getInstance()));
         request.addHeader(HeadersPublic.CLIENT_TYPE, HeadersPublic.TYPE);
         request.addHeader(HeadersPublic.VERSION, String.valueOf(BuildConfig.VERSION_NAME));
         request.addHeader(HeadersPublic.TRACE_ID, getSigna(timestamp));

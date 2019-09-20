@@ -62,29 +62,5 @@ public class AppUtils {
         return getPackageManager(context).versionCode;
     }
 
-    /**
-     * 获取手机deviceId
-     */
-    @SuppressLint({"HardwareIds", "MissingPermission"})
-    public static String getDeviceId(Context context) {
-        return ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
-    }
 
-    /**
-     * 判断 用户是否安装QQ客户端
-     */
-    public static boolean isQQClientAvailable(Context context) {
-        final PackageManager packageManager = context.getPackageManager();
-        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
-        if (!pinfo.isEmpty() && pinfo.size() > 0) {
-            for (int i = 0; i < pinfo.size(); i++) {
-                String pn = pinfo.get(i).packageName;
-                if (pn.equalsIgnoreCase("com.tencent.qqlite") || pn.equalsIgnoreCase("com.tencent.mobileqq")) {
-
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 }

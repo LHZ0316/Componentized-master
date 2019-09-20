@@ -3,8 +3,10 @@ package com.xiaodou.common;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.lhz.android.baseUtils.utils.ContextUtils;
 import com.lhz.android.libBaseCommon.base.BaseApi;
 import com.lhz.android.libBaseCommon.base.BaseApplication;
+import com.lhz.android.libBaseCommon.utils.Utils;
 import com.mob.MobSDK;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -42,6 +44,9 @@ public class MainApplication extends BaseApplication {
                 return BuildConfig.DEBUG;
             }
         });
+
+        // 初始化工具类
+        ContextUtils.init(this);
     }
 
     /**

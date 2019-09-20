@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.lhz.android.baseUtils.utils.ToastUtils;
 import com.lhz.android.libBaseCommon.base.RouterPath;
 import com.lhz.android.libBaseCommon.mvp_senior.annotations.CreatePresenterAnnotation;
 import com.lhz.android.baseUtils.widget.TitleBar;
@@ -55,7 +56,7 @@ public class HomeFragment extends BaseHomeFragment<IHomeFragmentContract.View, H
 
     @Override
     protected void initData() {
-
+        ToastUtils.showLongToast("nihao");
     }
 
 

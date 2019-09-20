@@ -220,23 +220,11 @@ public class StringUtils {
 
     }
 
-    /**
-     * 除 100 保留两位小数
-     */
-    public static String formatSum(Object d) {
-
-        try {
-            return String.format("%.2f", (double) d / 100);
-        } catch (Exception e) {
-            return "0.00";
-        }
-
-    }
 
     /**
      * 转换格式保留两位小数
      */
-    public static String formatMoney(String d) {
+    public static String formatDouble(String d) {
 
         try {
             return String.format("%.2f", Double.parseDouble(d));

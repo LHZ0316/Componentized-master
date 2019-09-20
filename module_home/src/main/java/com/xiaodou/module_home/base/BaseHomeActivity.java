@@ -15,9 +15,10 @@ import com.lhz.android.baseUtils.utils.StatusBar;
 
 public abstract class BaseHomeActivity<V extends IBaseView, P extends BasePresenter<V>> extends BaseMvpActivity<V, P> {
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        // 无标题
+        setHaveTitle(false);
         super.onCreate(savedInstanceState);
         StatusBar.setTransparent(this);//沉趁式  透明状态栏
     }
