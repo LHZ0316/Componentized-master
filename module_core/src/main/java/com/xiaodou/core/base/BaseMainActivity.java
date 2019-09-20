@@ -21,9 +21,9 @@ import com.lhz.android.libBaseCommon.base.BaseMvpActivity;
 import com.lhz.android.libBaseCommon.base.BasePresenter;
 import com.lhz.android.libBaseCommon.base.IBaseView;
 import com.lhz.android.libBaseCommon.utils.Utils;
-import com.lhz.android.libBaseUtils.utils.DownLoadUtil;
-import com.lhz.android.libBaseUtils.utils.StatusBar;
-import com.lhz.android.libBaseUtils.utils.ToastUtils;
+import com.lhz.android.baseUtils.utils.DownLoadUtil;
+import com.lhz.android.baseUtils.utils.StatusBar;
+import com.lhz.android.baseUtils.utils.ToastUtils;
 import com.xiaodou.common.R;
 
 import java.io.File;

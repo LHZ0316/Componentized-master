@@ -14,14 +14,14 @@
         android:layout_height="@dimen/status_bar_height"
         android:visibility="visible" />
 
-    <com.lhz.android.libBaseUtils.widget.TitleBar
+    <com.lhz.android.baseUtils.widget.TitleBar
         android:id="@+id/myTitleBar"
         android:visibility="visible"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_height">
 
-    </com.lhz.android.libBaseUtils.widget.TitleBar>
+    </com.lhz.android.baseUtils.widget.TitleBar>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="60dp"

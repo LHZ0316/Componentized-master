@@ -6,7 +6,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 
 import com.lhz.android.libBaseCommon.base.RouterPath;
 import com.lhz.android.libBaseCommon.mvp_senior.annotations.CreatePresenterAnnotation;
-import com.lhz.android.libBaseUtils.widget.TitleBar;
+import com.lhz.android.baseUtils.widget.TitleBar;
 import com.xiaodou.module_product.base.BaseProductFragment;
 import com.xiaodou.module_product.contract.IProductFragmentContract;
 import com.xiaodou.module_product.presenter.ProductFragmentPresenter;

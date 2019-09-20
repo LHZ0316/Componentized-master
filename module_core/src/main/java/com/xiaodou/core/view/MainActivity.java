@@ -2,6 +2,7 @@ package com.xiaodou.core.view;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -20,10 +22,15 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.lhz.android.baseUtils.utils.KProgressUtil;
+import com.lhz.android.baseUtils.widget.kprogresshud.KProgressHUD;
 import com.lhz.android.libBaseCommon.base.BaseFragment;
 import com.lhz.android.libBaseCommon.base.RouterPath;
 import com.lhz.android.libBaseCommon.https.RequestParam;
 import com.lhz.android.libBaseCommon.mvp_senior.annotations.CreatePresenterAnnotation;
+import com.lhz.android.baseUtils.utils.DialogUtils;
+import com.lhz.android.baseUtils.utils.StatusBar;
+import com.lhz.android.baseUtils.widget.ImmerseFrameLayout;
 import com.xiaodou.core.base.BaseMainActivity;
 import com.xiaodou.core.contract.IMainContract;
 import com.xiaodou.core.presenter.MainPresenter;
@@ -45,7 +52,7 @@ public class MainActivity extends BaseMainActivity<IMainContract.View, MainPrese
         implements BottomNavigationView.OnNavigationItemSelectedListener, IMainContract.View {
 
     @BindView(R2.id.fragment_content)
-    FrameLayout mFragmentContent;
+    ImmerseFrameLayout mFragmentContent;
     @BindView(R2.id.navigation)
     BottomNavigationView mNavigation;
     /**
@@ -70,6 +77,29 @@ public class MainActivity extends BaseMainActivity<IMainContract.View, MainPrese
 
     @Override
     protected void initData() {
+/*
+        String[] strings = new String[2];
+        strings[0] = "取消";
+        strings[1] = "确定";
+        DialogUtils.newInstance().showDiaLog(this, "提示" + "\r\n" + "\r\n" +
+                " - 界面全新改版，更清晰直观的视觉与操作体验。" + "\r\n" +
+                " - 可以在看一看里浏览朋友认为好看的文章。" + "\r\n" +
+                " - 解决了一些已知问题。文案瞎写的。", strings, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogUtils.newInstance().dismissDialog();
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogUtils.newInstance().dismissDialog();
+            }
+        });
+        */
+
+        KProgressUtil.newInstance().showProgress(this);
+
+
         RequestParam requestParam = new RequestParam();
         requestParam.addParameter("phoneNum", "15810733266");
         requestParam.addParameter("pwd", "123456");
@@ -81,6 +111,7 @@ public class MainActivity extends BaseMainActivity<IMainContract.View, MainPrese
         requestParam.addParameter("packageTag", "xd_test");
         getMvpPresenter().httpTest(requestParam);//网络框架的使用
     }
+
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -96,12 +127,16 @@ public class MainActivity extends BaseMainActivity<IMainContract.View, MainPrese
         int i = item.getItemId();
         if (i == R.id.navigation_home) {
             switchFragment(0);
+//            StatusBar.setBarColor(this, Color.TRANSPARENT);
         } else if (i == R.id.navigation_product) {
             switchFragment(1);
+//            StatusBar.setBarColor(this, Color.GREEN);
         } else if (i == R.id.navigation_find) {
             switchFragment(2);
+//            StatusBar.setBarColor(this, Color.parseColor("#6AA2FF"));
         } else if (i == R.id.navigation_my) {
             switchFragment(3);
+//            StatusBar.setBarColor(this, Color.TRANSPARENT);
         }
         return true;
     }

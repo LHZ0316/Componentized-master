@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import com.lhz.android.libBaseCommon.base.BaseMvpActivity;
 import com.lhz.android.libBaseCommon.base.BasePresenter;
 import com.lhz.android.libBaseCommon.base.IBaseView;
-import com.lhz.android.libBaseUtils.utils.StatusBar;
+import com.lhz.android.baseUtils.utils.StatusBar;
 
 
 /**

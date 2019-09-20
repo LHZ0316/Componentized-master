@@ -5,4 +5,9 @@
     <color name="color_2">#fb5a5c</color>
     <color name="colorTitle">#333333</color>
     <color name="colorMain">#6AA2FF</color>
+
+    <!--加载框-->
+    <color name="kprogresshud_default_color">#b1000000</color>
+    <color name="kprogresshud_grey_color">#449E9E9E</color>
+
 </resources>

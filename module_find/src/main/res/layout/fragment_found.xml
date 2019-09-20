@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
-    <com.lhz.android.libBaseUtils.widget.TitleBar
+    <com.lhz.android.baseUtils.widget.TitleBar
         android:id="@+id/myTitleBar"
         android:visibility="visible"
         android:background="@color/white"

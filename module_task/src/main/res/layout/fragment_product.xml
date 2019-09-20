@@ -4,9 +4,10 @@
     android:layout_height="match_parent"
     android:background="@color/color_f4"
     android:gravity="center"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <com.lhz.android.libBaseUtils.widget.TitleBar
+    <com.lhz.android.baseUtils.widget.TitleBar
         android:id="@+id/myTitleBar"
         android:visibility="visible"
         android:background="@color/white"
