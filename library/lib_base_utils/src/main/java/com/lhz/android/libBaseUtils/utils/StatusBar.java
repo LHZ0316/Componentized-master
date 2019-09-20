@@ -8,11 +8,13 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.lhz.android.libBaseUtils.R;
 
@@ -28,7 +30,8 @@ import java.lang.reflect.Method;
 public class StatusBar {
 
     private static final int DEFAULT_STATUS_BAR_ALPHA = 112;
-
+    private static final int FAKE_STATUS_BAR_VIEW_ID = R.id.statusbarutil_fake_status_bar_view;
+    private static final int FAKE_TRANSLUCENT_VIEW_ID = R.id.statusbarutil_translucent_view;
 
     /**
      * 设置状态栏颜色
@@ -59,41 +62,93 @@ public class StatusBar {
      *
      * @param color 要为状态栏设置的颜色值
      */
+
+
     private static void setColor(Activity activity, int color, @IntRange(from = 0, to = 255) int statusBarAlpha) {
 
-        //沉浸式状态栏(4.4-5.0透明，5.0以上半透明)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window win = activity.getWindow();
-            ViewGroup decorView = (ViewGroup) win.getDecorView();
-            WindowManager.LayoutParams localLayoutParams = win.getAttributes();
-            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            activity.getWindow().setStatusBarColor(calculateStatusColor(color, statusBarAlpha));
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
+            View fakeStatusBarView = decorView.findViewById(FAKE_STATUS_BAR_VIEW_ID);
+            if (fakeStatusBarView != null) {
+                if (fakeStatusBarView.getVisibility() == View.GONE) {
+                    fakeStatusBarView.setVisibility(View.VISIBLE);
+                }
+                fakeStatusBarView.setBackgroundColor(calculateStatusColor(color, statusBarAlpha));
+            } else {
+                decorView.addView(createStatusBarView(activity, color, statusBarAlpha));
+            }
+            setRootView(activity);
+        }
 
-            //android5.0以上设置透明效果
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                win.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);//清除flag，为了android5.0以上也全透明效果
-                //让应用的主体内容占用系统状态栏的空间
-                int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-                decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | option);
-                win.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                win.setStatusBarColor(calculateStatusColor(color, statusBarAlpha));//设置状态栏背景色
+        setTextDark(activity, !isDarkColor(color));
+    }
 
-                // 还要设置偏移，否则状态栏和内容重叠
-                // 设置 paddingTop
-                ViewGroup rootView = decorView.findViewById(android.R.id.content);
-                rootView.setPadding(0, getStatusBarHeight(activity), 0, 0);
-                //根布局添加占位状态栏
-                View statusBarView = new View(activity);
-                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        getStatusBarHeight(activity));
-//                statusBarView.setBackgroundColor(Color.parseColor("#fb5a5c"));
-                statusBarView.setBackgroundColor(calculateStatusColor(color, statusBarAlpha));
-                decorView.addView(statusBarView, lp);
+    /**
+     * 生成一个和状态栏大小相同的半透明矩形条
+     *
+     * @param activity 需要设置的activity
+     * @param color    状态栏颜色值
+     * @param alpha    透明值
+     * @return 状态栏矩形条
+     */
+    private static View createStatusBarView(Activity activity, @ColorInt int color, int alpha) {
+        // 绘制一个和状态栏一样高的矩形
+        View statusBarView = new View(activity);
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
+        statusBarView.setLayoutParams(params);
+        statusBarView.setBackgroundColor(calculateStatusColor(color, alpha));
+        statusBarView.setId(FAKE_STATUS_BAR_VIEW_ID);
+        return statusBarView;
+    }
 
+    /**
+     * 设置根布局参数
+     */
+    private static void setRootView(Activity activity) {
+        ViewGroup parent = (ViewGroup) activity.findViewById(android.R.id.content);
+        for (int i = 0, count = parent.getChildCount(); i < count; i++) {
+            View childView = parent.getChildAt(i);
+            if (childView instanceof ViewGroup) {
+                childView.setFitsSystemWindows(true);
+                ((ViewGroup) childView).setClipToPadding(true);
             }
         }
     }
 
+    /**
+     * 状态栏文字的颜色改成深色
+     */
+    public static void setTextDark(Activity activity, boolean isDark) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            View decorView = activity.getWindow().getDecorView();
+            int systemUiVisibility = decorView.getSystemUiVisibility();
+            if (isDark) {
+                decorView.setSystemUiVisibility(systemUiVisibility | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            } else {
+                decorView.setSystemUiVisibility(systemUiVisibility & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (isDark) {
+                setDarkMode(activity);
+            } else {
+                setLightMode(activity);
+            }
+        }
+
+    }
+
+    /**
+     * 判断颜色深浅
+     */
+    public static boolean isDarkColor(@ColorInt int color) {
+        return ColorUtils.calculateLuminance(color) < 0.5;
+    }
 
     //////////////////////////////////////////////
 
@@ -128,10 +183,24 @@ public class StatusBar {
         }
     }
 
+    /**
+     * 获取状态栏高度
+     *
+     * @param context context
+     * @return 状态栏高度
+     */
+    public static int getStatusBarHeight(Context context) {
+        // 获得状态栏高度
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        return context.getResources().getDimensionPixelSize(resourceId);
+    }
+
     //////////////////////////////////////////////
 
     /**
-     * 设置状态栏全透明
+     * 设置状态栏全透明  +  沉浸式状态栏
+     * <p>
+     * android4.4以上
      *
      * @param activity 需要设置的activity
      */
@@ -166,38 +235,16 @@ public class StatusBar {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+
         } else {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
     }
 
-    /**
-     * 修正 Toolbar 的位置
-     * 在 Android 4.4 版本下无法显示内容在 StatusBar 下，所以无需修正 Toolbar 的位置
-     *
-     * @param toolbar
-     */
-    public static void fixToolbar(Toolbar toolbar, Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            int statusHeight = getStatusBarHeight(activity);
-            ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
-            layoutParams.setMargins(0, statusHeight, 0, 0);
-        }
-    }
-
-    /**
-     * 获取状态栏高度
-     *
-     * @param context context
-     * @return 状态栏高度
-     */
-    public static int getStatusBarHeight(Context context) {
-        // 获得状态栏高度
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        return context.getResources().getDimensionPixelSize(resourceId);
-    }
+    //////////////////////////////////////////////
 
     /**
      * 计算状态栏颜色

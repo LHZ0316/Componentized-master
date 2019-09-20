@@ -46,39 +46,39 @@ public abstract class BaseMvpFragment<V extends IBaseView, P extends BasePresent
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("perfect-mvp", "V onResume");
+        Log.e("perfect-BaseMvpFragment", "V onResume");
 //        mProxy.onResume((V) this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("perfect-mvp", "V onDestroy = ");
+        Log.e("perfect-BaseMvpFragment", "V onDestroy = ");
         mProxy.onDestroy();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.e("perfect-mvp", "V onSaveInstanceState");
+        Log.e("perfect-BaseMvpFragment", "V onSaveInstanceState");
         outState.putBundle(PRESENTER_SAVE_KEY, mProxy.onSaveInstanceState());
     }
 
     @Override
     public void setPresenterFactory(IMvpPresenterFactory<V, P> presenterFactory) {
-        Log.e("perfect-mvp", "V setPresenterFactory");
+        Log.e("perfect-BaseMvpFragment", "V setPresenterFactory");
         mProxy.setPresenterFactory(presenterFactory);
     }
 
     @Override
     public IMvpPresenterFactory<V, P> getPresenterFactory() {
-        Log.e("perfect-mvp", "V getPresenterFactory");
+        Log.e("perfect-BaseMvpFragment", "V getPresenterFactory");
         return mProxy.getPresenterFactory();
     }
 
     @Override
     public P getMvpPresenter() {
-        Log.e("perfect-mvp", "V getMvpPresenter");
+        Log.e("perfect-BaseMvpFragment", "V getMvpPresenter");
         return mProxy.getMvpPresenter();
     }
 

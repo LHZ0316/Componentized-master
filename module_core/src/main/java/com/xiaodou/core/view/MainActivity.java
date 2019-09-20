@@ -64,13 +64,6 @@ public class MainActivity extends BaseMainActivity<IMainContract.View, MainPrese
     private BaseFragment mMyFragment;
     private long mExitTime;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        setHaveTitle(false);
-        super.onCreate(savedInstanceState);
-    }
-
-
     public int setLayoutId() {
         return R.layout.activity_main;
     }

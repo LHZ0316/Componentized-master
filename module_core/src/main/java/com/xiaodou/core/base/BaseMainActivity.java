@@ -1,5 +1,6 @@
 package com.xiaodou.core.base;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -8,9 +9,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.RemoteViews;
 
 import com.lhz.android.libBaseCommon.base.BaseMvpActivity;
@@ -34,6 +38,8 @@ public abstract class BaseMainActivity<V extends IBaseView, P extends BasePresen
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        // 无标题
+        setHaveTitle(false);
         super.onCreate(savedInstanceState);
         //设置沉浸式，透明状态栏,针对一个activity对多个fragment
         StatusBar.setTransparent(this);
@@ -108,141 +114,50 @@ public abstract class BaseMainActivity<V extends IBaseView, P extends BasePresen
     }
 
     /**
-     * 下载文件
-     *
-     * @param url
+     * 隐藏虚拟按键，并且全屏
      */
-//    protected ProgressListener mProgressListener;
-    private NotificationManager mNotificationManager;
-    private Notification mNotification;
-    private String mApkFile;
-    public void downLoadFile(String url, final String fileName, ProgressListener progressListener) {
-        DownLoadUtil.downloadFile(this, url, new DownLoadUtil.DownLoadListener() {
-            @Override
-            public void download(long fileSize, long downLoadFileSize) {
-                showNotification(fileSize, downLoadFileSize, fileName);
-                if (null != progressListener) {
-                    progressListener.toUpdateProgress(fileSize, downLoadFileSize);
-                }
-            }
-
-            @Override
-            public void downloadComplete(long fileSize, long downLoadFileSize, String apkFile) {
-                if (null != mNotificationManager) {
-                    mNotificationManager.cancel(NOTIFICATION_ID);
-                }
-                mApkFile = apkFile;
-                Intent intent = getFileIntent(new File(apkFile));
-                startActivity(intent);
-            }
-
-            @Override
-            public void downloadFaile(boolean isConnect) {
-                progressListener.toReDownLoad();
-                if (!isConnect) {
-                    ToastUtils.showLongToast("请检查网络后，重新下载");
-                }
-                if (null != mNotificationManager) {
-                    mNotificationManager.cancel(NOTIFICATION_ID);
-                }
-            }
-        });
+    public static void hideBottomNav(Activity activity) {
+        View decorView = activity.getWindow().getDecorView();
+        decorView.setSystemUiVisibility(0);
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN |
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
     }
 
-    private static final int NOTIFICATION_ID = 9999;
-    private boolean mIsStopDownLoad = false;
-    private RemoteViews rv;
-    private void showNotification(long fileSize, long downLoadFileSize, String fileName) {
-        if (mIsStopDownLoad) {
-            if (null != mNotificationManager) {
-                mNotificationManager.cancel(NOTIFICATION_ID);
-            }
-        } else {
-            mNotificationManager = (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
-            mNotification = new Notification();
-            mNotification.icon = R.mipmap.ic_logo_application;
-//                    mNotification.largeIcon=BitmapFactory.decodeResource(getResources(), R.drawable.logo);
-            mNotification.tickerText = "开始下载";
-
-            rv = new RemoteViews(getPackageName(), R.layout.notification_download_update);
-            rv.setImageViewResource(R.id.iv_logo, R.mipmap.ic_logo_application);
-            if (!TextUtils.isEmpty(fileName)) {
-                rv.setTextViewText(R.id.txt_notice, "正在下载" + fileName + "，已完成" + (downLoadFileSize * 100 / fileSize) + "%");
-            } else {
-                rv.setTextViewText(R.id.txt_notice, "正在下载文件，已完成" + (downLoadFileSize * 100 / fileSize) + "%");
-            }
-            int progress = (int) (downLoadFileSize * 100 / fileSize);
-            rv.setProgressBar(R.id.progBar, 100, progress, false);
-            mNotification.contentView = rv;
-
-            Intent i = new Intent();
-            i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, 0);
-            mNotification.contentIntent = pendingIntent;
-            mNotificationManager.notify(NOTIFICATION_ID, mNotification);
-        }
+    /**
+     * 重新显示导航栏和状态栏
+     */
+    public static void showBottomNav(Activity activity) {
+        View decorView = activity.getWindow().getDecorView();
+        decorView.setSystemUiVisibility(0);
     }
 
-    public interface ProgressListener {
-        void toUpdateProgress(long fileSize, long downLoadFileSize);
-
-        void toReDownLoad();
+    /**
+     * 沉浸式全屏状态下，显示导航栏和状态栏
+     */
+    public static void showBottomNavImmerseBar(Activity activity) {
+        View decorView = activity.getWindow().getDecorView();
+        decorView.setSystemUiVisibility(0);
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
-    private Intent getFileIntent(File file) {
-        Uri uri = Uri.fromFile(file);
-        String type = getMIMEType(file);
-        Log.i("tag", "type=" + type);
-        Intent intent = new Intent("android.intent.action.VIEW");
-        intent.addCategory("android.intent.category.DEFAULT");
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setDataAndType(uri, type);
-        return intent;
-    }
-    private String getMIMEType(File f) {
-        String type = "";
-        String fName = f.getName();
-      /* 取得扩展名 */
-        String end = fName.substring(fName.lastIndexOf(".") + 1, fName.length()).toLowerCase();
-
-      /* 依扩展名的类型决定MimeType */
-        if (end.equals("pdf")) {
-            type = "application/pdf";//
-        } else if (end.equals("m4a") || end.equals("mp3") || end.equals("mid") ||
-                end.equals("xmf") || end.equals("ogg") || end.equals("wav")) {
-            type = "audio/*";
-        } else if (end.equals("3gp") || end.equals("mp4")) {
-            type = "video/*";
-        } else if (end.equals("jpg") || end.equals("gif") || end.equals("png") ||
-                end.equals("jpeg") || end.equals("bmp")) {
-            type = "image/*";
-        } else if (end.equals("apk")) {
-        /* android.permission.INSTALL_PACKAGES */
-            type = "application/vnd.android.package-archive";
-        } else if (end.equals("pptx") || end.equals("ppt")) {
-            type = "application/vnd.ms-powerpoint";
-        } else if (end.equals("docx") || end.equals("doc")) {
-            type = "application/vnd.ms-word";
-        } else if (end.equals("xlsx") || end.equals("xls")) {
-            type = "application/vnd.ms-excel";
-        } else {
-//        /*如果无法直接打开，就跳出软件列表给用户选择 */
-            type = "*/*";
-        }
-        return type;
+    /**
+     * 全屏，显示导航栏和状态栏
+     */
+    @RequiresApi(api = 28)
+    public void showFullScreenModel(Activity activity) {
+        activity.requestWindowFeature(activity.getWindow().FEATURE_NO_TITLE);
+        WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
+        lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+        activity.getWindow().setAttributes(lp);
+        View decorView = activity.getWindow().getDecorView();
+        decorView.setSystemUiVisibility(0);
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN |
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
     }
 
-    public void open() {
-        Intent intent = getFileIntent(new File(mApkFile));
-        startActivity(intent);
-    }
-    public void stop() {
-        DownLoadUtil.isStop(true);
-        mIsStopDownLoad = true;
-    }
-
-    public void start() {
-        DownLoadUtil.isStop(false);
-        mIsStopDownLoad = false;
-    }
 }

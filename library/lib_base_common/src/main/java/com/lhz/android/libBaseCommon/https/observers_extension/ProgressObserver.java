@@ -10,7 +10,7 @@ import io.reactivex.disposables.Disposable;
 /**
  * lhz  on 2019/8/21.
  * <p>
- * 扩展类，用来调用请求网络时的进度条
+ * 扩展类，用来调用请求网络时的加载框
  */
 
 public abstract class ProgressObserver<T> extends BaseObserver<T> {

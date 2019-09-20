@@ -43,11 +43,11 @@ public abstract class BaseMvpActivity<V extends IBaseView, P extends BasePresent
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         mProxy.onCreate((V) this);
-        super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             mProxy.onRestoreInstanceState(savedInstanceState.getBundle(PRESENTER_SAVE_KEY));
         }
         mLoadingDialog = new LoadingDialog(this);
+        super.onCreate(savedInstanceState);
     }
 
     @Override

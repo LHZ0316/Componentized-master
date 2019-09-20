@@ -1,16 +1,22 @@
 package com.xiaodou.core.view;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.lhz.android.libBaseCommon.base.BaseMvpActivity;
 import com.lhz.android.libBaseCommon.base.RouterPath;
 import com.lhz.android.libBaseCommon.mvp_senior.annotations.CreatePresenterAnnotation;
+import com.lhz.android.libBaseUtils.utils.ScreenUtil;
+import com.lhz.android.libBaseUtils.utils.StatusBar;
+import com.scwang.smartrefresh.layout.util.DensityUtil;
+import com.xiaodou.core.base.BaseMainActivity;
 import com.xiaodou.core.contract.IMainContract;
 import com.xiaodou.core.presenter.LaunchPresenter;
 import com.xiaodou.common.R;
@@ -22,7 +28,7 @@ import java.lang.ref.WeakReference;
  */
 @CreatePresenterAnnotation(LaunchPresenter.class)
 @Route(path = RouterPath.MAIN_ACTIVITY)
-public class LaunchActivity extends BaseMvpActivity<IMainContract.LaunchView, LaunchPresenter>
+public class LaunchActivity extends BaseMainActivity<IMainContract.LaunchView, LaunchPresenter>
         implements IMainContract.LaunchView {
     private int time = 1;
     private myHandler myHandler;
@@ -66,16 +72,22 @@ public class LaunchActivity extends BaseMvpActivity<IMainContract.LaunchView, La
                     activity.finish();
                     activity.myHandler.removeMessages(0);
                 }
-                activity.myHandler.sendEmptyMessageDelayed(0, 1000);
+                activity.myHandler.sendEmptyMessageDelayed(0, 500);
             }
         }
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        setHaveTitle(false);
         super.onCreate(savedInstanceState);
+        // 适配刘海屏
+        if (Build.VERSION.SDK_INT >= 28) {
+            showFullScreenModel(this);
+        } else {
+            hideBottomNav(this);
+        }
     }
+
 
     @Override
     public LaunchActivity getThis() {
@@ -95,7 +107,7 @@ public class LaunchActivity extends BaseMvpActivity<IMainContract.LaunchView, La
     @Override
     protected void initData() {
         myHandler = new myHandler(this);
-        myHandler.sendEmptyMessageDelayed(0, 1000);
+        myHandler.sendEmptyMessageDelayed(0, 500);
     }
 
     @Override

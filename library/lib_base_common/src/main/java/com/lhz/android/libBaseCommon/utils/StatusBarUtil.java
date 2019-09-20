@@ -9,6 +9,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +72,37 @@ public class StatusBarUtil {
             }
             setRootView(activity);
         }
+
+        setTextDark(activity, !isDarkColor(color));
+    }
+
+    /**
+     * 状态栏文字的颜色改成深色
+     */
+    public static void setTextDark(Activity activity, boolean isDark) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            View decorView = activity.getWindow().getDecorView();
+            int systemUiVisibility = decorView.getSystemUiVisibility();
+            if (isDark) {
+                decorView.setSystemUiVisibility(systemUiVisibility | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            } else {
+                decorView.setSystemUiVisibility(systemUiVisibility & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (isDark) {
+                setDarkMode(activity);
+            } else {
+                setLightMode(activity);
+            }
+        }
+
+    }
+
+    /**
+     * 判断颜色深浅
+     */
+    public static boolean isDarkColor(@ColorInt int color) {
+        return ColorUtils.calculateLuminance(color) < 0.5;
     }
 
     /**
