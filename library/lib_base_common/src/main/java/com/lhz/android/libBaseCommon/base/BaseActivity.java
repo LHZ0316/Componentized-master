@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.lhz.android.libBaseCommon.R;
 import com.lhz.android.libBaseCommon.eventbus.EventType;
+import com.lhz.android.libBaseCommon.statelayout.RPageStatusController;
+import com.lhz.android.libBaseCommon.statelayout.annotation.RPageStatus;
 import com.lhz.android.libBaseCommon.utils.StatusBarUtil;
 import com.lhz.android.libBaseCommon.utils.Utils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -49,35 +51,54 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     /**
      * 标题栏
      */
+    private FrameLayout mBaseContent;
     protected TextView mTitleBarName, mTitleBarLeft, mTitleBarRight, mTitleBarMore;
     protected RelativeLayout mBaseTitle;
     protected int mResultCode = RESULT_CANCELED;
     private View mView;
     private View mContentView;
 
+    /**
+     * 界面状态管理
+     */
+    protected RPageStatusController rPageStatusController;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 设置标题
-        if (isHaveTitle) {
-            mView = initContentView();
-            setContentView(mView); // 设置布局。
-        } else {
-            setContentView(setLayoutId());// 设置布局。
-        }
-        ButterKnife.bind(this);
         // 禁止所有的activity横屏
         if (isAllowScreenRotate) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
+        // 设置标题
+        if (isHaveTitle) {
+            mView = initContentView();
+            setContentView(mView); // 设置布局。
+
+            // 界面多状态管理
+            rPageStatusController = RPageStatusController.get();
+            rPageStatusController.bind(mBaseContent);
+        } else {
+            setContentView(setLayoutId());// 设置布局。
+
+            // 界面多状态管理
+            rPageStatusController = RPageStatusController.get();
+            rPageStatusController.bind(this);
+        }
+
+        ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         ViewManager.getInstance().addActivity(this);
+
+
         // 设置状态栏颜色
         StatusBarUtil.setColor(this, getResources().getColor(R.color.white), 0);
         initView(savedInstanceState);
         initData();
-        EventBus.getDefault().register(this);
+
     }
 
     /**
@@ -86,7 +107,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected View initContentView() {
         if (null == mView) {
             mContentView = LayoutInflater.from(this).inflate(R.layout.activity_base, null);
-            FrameLayout mBaseContent = (FrameLayout) mContentView.findViewById(R.id.base_content);
+            mBaseContent = (FrameLayout) mContentView.findViewById(R.id.base_content);
             mBaseContent.addView(View.inflate(this, setLayoutId(), null));
             mBaseTitle = (RelativeLayout) mContentView.findViewById(R.id.base_title);
             mTitleBarName = (TextView) mContentView.findViewById(R.id.title_bar_name);

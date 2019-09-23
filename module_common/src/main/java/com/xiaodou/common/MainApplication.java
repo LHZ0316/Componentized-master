@@ -1,11 +1,19 @@
 package com.xiaodou.common;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
+import android.util.Log;
+import android.view.View;
 
 import com.lhz.android.baseUtils.utils.ContextUtils;
+import com.lhz.android.baseUtils.utils.ToastUtils;
 import com.lhz.android.libBaseCommon.base.BaseApi;
 import com.lhz.android.libBaseCommon.base.BaseApplication;
+import com.lhz.android.libBaseCommon.statelayout.IRPageStatusController;
+import com.lhz.android.libBaseCommon.statelayout.RPageStatusManager;
+import com.lhz.android.libBaseCommon.statelayout.annotation.RPageStatus;
+import com.lhz.android.libBaseCommon.statelayout.listener.OnRPageEventListener;
 import com.lhz.android.libBaseCommon.utils.Utils;
 import com.mob.MobSDK;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -47,6 +55,19 @@ public class MainApplication extends BaseApplication {
 
         // 初始化工具类
         ContextUtils.init(this);
+
+        RPageStatusManager.getInstance()
+                .addPageStatusView(RPageStatus.LOADING, R.layout.status_view_loading)
+                .addPageStatusView(RPageStatus.EMPTY, R.layout.status_view_empty)
+                .addPageStatusView(RPageStatus.NET_WORK, R.layout.status_view_network, R.id.ll_net_work, null)
+                .addPageStatusView(RPageStatus.ERROR, R.layout.status_view_error, R.id.ll_error, new OnRPageEventListener() {
+                    @Override
+                    public void onViewClick(@NonNull IRPageStatusController iRPageStatusController, @RPageStatus int pageStatus, @NonNull Object object, @NonNull View view, int viewId) {
+                        ToastUtils.showShortToast("全局配置加载错误监听: " + object);
+                        Log.i("MyApplication", "全局配置加载错误监听: iRPageStatusController = [" + iRPageStatusController + "]," +
+                                " pageStatus = [" + pageStatus + "], object = [" + object + "], view = [" + view + "], viewId = [" + viewId + "]");
+                    }
+                });
     }
 
     /**

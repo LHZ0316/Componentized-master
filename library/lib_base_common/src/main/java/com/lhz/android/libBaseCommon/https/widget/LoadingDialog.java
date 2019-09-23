@@ -38,8 +38,9 @@ public class LoadingDialog extends ProgressDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setCanceledOnTouchOutside(true);
-        initView();
-        initData();
+        setContentView(R.layout.dialog_http_loading2);
+//        initView();
+//        initData();
     }
 
     private void initData() {
