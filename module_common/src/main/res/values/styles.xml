@@ -10,6 +10,7 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="windowActionBar">false</item>
+        <item name="android:windowBackground">#F4F4F4</item><!-- 窗口背景颜色 -->
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
@@ -17,7 +18,8 @@
         <item name="android:windowActionBar">false</item><!--//无ActionBar-->
         <item name="android:windowFullscreen">true</item><!--//全屏即无通知栏-->
         <item name="android:windowContentOverlay">@null</item><!--//是否有遮盖-->
-        <item name="android:windowBackground">@drawable/splash_bg_welcome</item><!--启动白屏-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
 

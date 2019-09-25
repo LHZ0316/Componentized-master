@@ -27,8 +27,11 @@ public class KProgressUtil {
                     .setAnimationSpeed(1)
                     .setDimAmount(0.5f)
                     .show();
+        } else {
+            if (!alertDialog.isShowing()) {
+                alertDialog.show();
+            }
         }
-
     }
 
     public void dismissProgress() {

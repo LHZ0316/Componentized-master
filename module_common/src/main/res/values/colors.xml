@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#5A8DDF</color>
+    <color name="textColor">#333333</color>
+    <color name="textColorHint">#757575</color>
 
     <color name="progress_bar_start_color">#ff7721</color>
     <color name="progress_bar_end_color">#FFFFFF</color>

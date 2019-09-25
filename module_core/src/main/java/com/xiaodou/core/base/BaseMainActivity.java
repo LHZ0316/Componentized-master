@@ -11,22 +11,15 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.RemoteViews;
 
 import com.lhz.android.libBaseCommon.base.BaseMvpActivity;
 import com.lhz.android.libBaseCommon.base.BasePresenter;
 import com.lhz.android.libBaseCommon.base.IBaseView;
 import com.lhz.android.libBaseCommon.utils.Utils;
-import com.lhz.android.baseUtils.utils.DownLoadUtil;
 import com.lhz.android.baseUtils.utils.StatusBar;
-import com.lhz.android.baseUtils.utils.ToastUtils;
-import com.xiaodou.common.R;
 
-import java.io.File;
 
 /**
  * lhz  on 2019/8/21.

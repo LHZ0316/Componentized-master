@@ -38,6 +38,7 @@ android {
         }
 
     }
+    // APK 签名
     signingConfigs {
         config {
             keyAlias keystoreProperties['keyAlias']
@@ -48,12 +49,17 @@ android {
     }
     buildTypes {
         debug {
+            // 设置混淆
             minifyEnabled false
+            // 开发环境签名
             signingConfig signingConfigs.config
         }
         release {
+            // 设置混淆
             minifyEnabled false
+            // 正式环境签名
             signingConfig signingConfigs.config
+            // 混淆配置
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             applicationVariants.all { variant ->
                 variant.outputs.all { output ->

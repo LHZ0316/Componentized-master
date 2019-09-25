@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.lhz.android.baseUtils.utils.ContextUtils;
-import com.lhz.android.baseUtils.utils.ToastUtils;
 import com.lhz.android.libBaseCommon.base.BaseApi;
 import com.lhz.android.libBaseCommon.base.BaseApplication;
 import com.lhz.android.libBaseCommon.statelayout.IRPageStatusController;
@@ -63,7 +62,6 @@ public class MainApplication extends BaseApplication {
                 .addPageStatusView(RPageStatus.ERROR, R.layout.status_view_error, R.id.ll_error, new OnRPageEventListener() {
                     @Override
                     public void onViewClick(@NonNull IRPageStatusController iRPageStatusController, @RPageStatus int pageStatus, @NonNull Object object, @NonNull View view, int viewId) {
-                        ToastUtils.showShortToast("全局配置加载错误监听: " + object);
                         Log.i("MyApplication", "全局配置加载错误监听: iRPageStatusController = [" + iRPageStatusController + "]," +
                                 " pageStatus = [" + pageStatus + "], object = [" + object + "], view = [" + view + "], viewId = [" + viewId + "]");
                     }

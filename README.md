@@ -28,9 +28,13 @@ lib_thermal_repair 热更新库
 lib_share_push 分享库
 
 # 知识点
-组件化，Mvp框架，retrofit2，rxJava2，rxLifecycle2
+* 组件化，Mvp框架，retrofit2，rxJava2，rxLifecycle2
 
-Material Design 常用控件
+* Material Design 常用控件
+
+* androidStudio 3.5 与 androidX
+
+模块化 与 组件化
 
 * SwipeRefreshLayout
 * Toolbar
@@ -141,3 +145,22 @@ handler的使用
  * 为其预留出状态栏的空间，其实就是设置一个padding，而其他Fragment添加到Activity中的时候，
  * 因为状态栏空间的适配已经被消费过一次了，Activity并不会再次去添加这个padding。
  * 因此我们需要自定义一个FrameLayout，重写它的状态栏空间适配的时机和它的适配事件的分发。
+
+问题 解决组件化开发使用butterKnife
+ * id  R替换成R2
+ * 点击事件   switch (view.getId()) {} 替换成   if (i == R.id.mb_button1) {}else if(i == R.id.mb_button2){}
+
+问题 如过在Android P(9.0)上依然使用明文传输，则有下面三种解决方案
+ * 将APP改用https请求；
+ * 将targetSdkVersion降到27以下；
+ * 在res下新建一个xml目录，然后创建一个名为：network_security_config.xml文件
+    <?xml version="1.0" encoding="utf-8"?>
+    <network-security-config>
+        <base-config cleartextTrafficPermitted="true" />
+    </network-security-config>
+ * 在APP的AndroidManifest.xml文件下的application标签内增加下面一条属性
+   <application
+   ...
+    android:networkSecurityConfig="@xml/network_security_config"
+   ...
+   />
