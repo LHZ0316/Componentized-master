@@ -89,8 +89,91 @@ MVP架构的使用
 eventbus的使用
 
 BaseRecyclerViewAdapterHelper的使用
+* 定义一个适配器
+     private class MyAdapter extends BaseQuickAdapter<TitleModel, BaseViewHolder> {
 
+            public MyAdapter(@Nullable List<TitleModel> data) {
+                super(R.layout.item_rv_main, data);//item 资源ID
+            }
+
+            /**
+             * Implement this method and use the helper to adapt the view to the given item.
+             *
+             * @param helper A fully initialized helper.
+             * @param item   The item that needs to be displayed.
+             */
+            @Override
+            protected void convert(BaseViewHolder helper, TitleModel item) {
+                helper.setText(R.id.title, item.getTitle());//给控件设值
+                helper.addOnClickListener(R.id.clicktestview);//给子view添加点击事件
+            }
+        }
+* 初始化适配器相关参数
+    private void initAdapter() {
+            mAdapter = new MyAdapter(null);//可以直接传入数据，数据未获取到的情况下可以传null
+            mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);//设置列表加载动画
+            mAdapter.isFirstOnly(false);//是否仅在第一次加载列表时展示动画
+            mRv.setLayoutManager(new LinearLayoutManager(mContext));
+            mRv.setAdapter(mAdapter);
+        }
+* 给适配器添加数据
+//第一种方式
+     List<TitleModel> list = new ArrayList<>();
+                                    list.add(new TitleModel("GreenDao使用", true));
+                                    list.add(new TitleModel("功能2", false));
+                                    list.add(new TitleModel("功能3", false));
+                                    list.add(new TitleModel("...", false));
+                                    mAdapter.setNewData(list);//添加集合数据
+
+    //第二种方式
+     for (int i = 0; i < 6; i++) {
+                                    mAdapter.addData(new TitleModel("RV功能展示", false));//添加单条数据
+                                }
+    //        mAdapter.setEmptyView(getEmptyview());//设置没有数据时的空白页面
+    //        mAdapter.addFooterView(getFootView());//添加一个脚布局 有三个相应的方法
+    //        mAdapter.addHeaderView(getHeaderView());//添加一个头布局 有三个相应的方法
+    //        mAdapter.notify...();//内容发生改变时刷新方法
+    //        mAdapter.remove();
+*点击事件处理
+    //适配器Item点击事件
+            mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    if( ((TitleModel)adapter.getData().get(position)).getIndex()){
+                        toNext(position);
+                    }else {
+                        showToast("您点击了第" + (position + 1) + "条数据");
+                    }
+                }
+            });
+            //适配器子view点击事件
+            mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                @Override
+                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                    switch (view.getId()) {
+                        case R.id.clicktestview:
+                            showToast("您点击了第" + (position + 1) + "条数据的子view");
+                            break;
+                    }
+                }
+            });
 SmartRefreshLayout的使用
+ *下拉刷新和加载更多
+    //下拉刷新监听
+              mSw.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                  @Override
+                  public void onRefresh() {
+                      setAdapterData();
+                  }
+              });
+              //加载更多监听
+              mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+                  @Override
+                  public void onLoadMoreRequested() {
+                      addData();
+                  }
+              }, mRv);
+
 
 bugly热修复的使用
 

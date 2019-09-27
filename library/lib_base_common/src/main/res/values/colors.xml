@@ -2,4 +2,21 @@
 <resources>
     <color name="color_333333">#333333</color>
     <color name="white">#ffffff</color>
+    <!-- 透明色 -->
+    <color name="transparent">#00000000</color>
+    <!-- 对话框确认按钮文本颜色 -->
+    <color name="colorConfirm">#007AFF</color>
+    <!-- 对话框取消按钮文本颜色 -->
+    <color name="colorCancel">#F44336</color>
+    <!-- 分割线的颜色 -->
+    <color name="colorLine">#ECECEC</color>
+    <color name="black5">#0D000000</color>
+
+    <!-- 按钮按压时的颜色 -->
+    <color name="colorButtonPressed">#1976D2</color>
+    <!-- 按钮禁用时的颜色 -->
+    <color name="colorButtonDisable">#BBBBBB</color>
+    <!-- 默认按钮颜色 -->
+    <color name="colorButtonAccent">#5A8DDF</color>
+
 </resources>

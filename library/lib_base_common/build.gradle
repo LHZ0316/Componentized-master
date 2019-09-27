@@ -76,7 +76,8 @@ dependencies {
     api dependencie.okhttp3
     api dependencie.okhttp3_logging
     api dependencie.okio
-
+    // 缓存框架
+    api dependencie.disklrucache
     // 网络框架retrofit
     // https://github.com/square/retrofit
     api dependencie.retrofit2

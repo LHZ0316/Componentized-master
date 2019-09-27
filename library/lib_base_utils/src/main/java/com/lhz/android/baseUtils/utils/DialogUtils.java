@@ -47,6 +47,7 @@ public class DialogUtils {
                 tvConfirm.setOnClickListener(confirmListener);
             }
             alertDialog.setCanceledOnTouchOutside(false);//设置点击Dialog外部任意区域关闭Dialog
+            alertDialog.setCancelable(false);//设置按返回键是否响应返回，这是不响应
         }
     }
 

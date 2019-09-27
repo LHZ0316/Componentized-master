@@ -60,12 +60,14 @@ ext {
 
             //Gson  https://github.com/google/gson
             gson                     : '2.8.2',
+            // https://github.com/JakeWharton/DiskLruCache
+            disklrucache             : '2.0.2',
 
             //对Recycle中Adapter的进行的抽离
             recycle_adapter          : '2.9.30',
             smart_refresh_layout     : "1.1.0-alpha-5",
 
-            //Eventbus Android端优化的publish/subscribe消息总线, https://github.com/greenrobot/EventBus
+            //Eventbus
             eventbus                 : '3.1.1',
 
             //AOP AspectJ
@@ -171,6 +173,8 @@ ext {
             butterknife              : "com.jakewharton:butterknife:$versions.butterknife",
             butterknife_compiler     : "com.jakewharton:butterknife-compiler:$versions.butterknife_compiler",
 
+            // 缓存
+            disklrucache             : "com.jakewharton:disklrucache:$versions.disklrucache",
             //个推  推送
             getui                    : "com.getui:sdk:2.12.3.0",
 
@@ -183,10 +187,19 @@ ext {
             // 轮播图：https://github.com/bingoogolapple/BGABanner-Android
             // 二维码：https://github.com/bingoogolapple/BGAQRCode-Android
             // 第三方支付：https://github.com/getActivity/RxPay
+            //             https://github.com/mayubao/Android-Pay
+            // 第三方登陆：https://github.com/justauth/JustAuth
             // 图片压缩：https://github.com/Curzibn/Luban
             // 对象存储：https://github.com/leavesC/DoKV
             // 本地异常捕捉框架：https://github.com/Ereza/CustomActivityOnCrash
             // 内存泄漏捕捉：https://github.com/square/leakcanary
             // 支持放大缩放的图片：https://github.com/chrisbanes/PhotoView
+            // 闪光控件  https://github.com/facebook/shimmer-android
+            //           https://github.com/elye/loaderviewlibrary
+            // implementation 'com.facebook.shimmer:shimmer:0.5.0'
+            // 数据缓存 https://github.com/Stubborn-boy/DiskCache
+            // https://github.com/JakeWharton/DiskLruCache
+
+            // 接口数据抓取 https://github.com/leavesC/Monitor
     ]
 }

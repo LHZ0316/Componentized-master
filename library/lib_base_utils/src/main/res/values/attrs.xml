@@ -1,4 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--自定义各类样式Button-->
+    <declare-styleable name="CustomButton">
+        <attr name="cb_radius" format="dimension" />
+        <attr name="cb_background_color" format="color" />
+        <attr name="cb_background_color_press" format="color" />
+        <attr name="cb_background_color_false" format="color" />
+        <attr name="cb_background_text_color" format="color" />
+        <attr name="cb_background_text_color_press" format="color" />
+        <attr name="cb_background_text_color_false" format="color" />
+        <attr name="cb_background_border" format="dimension" />
+        <attr name="cb_background_border_color" format="color" />
+        <attr name="cb_background_border_color_press" format="color" />
+        <attr name="cb_background_border_color_false" format="color" />
+    </declare-styleable>
+    <!--end-->
+
+    <!-- switch开关按钮 -->
+    <declare-styleable name="SwitchButton">
+        <!-- 是否选中 -->
+        <attr name="android:checked" />
+        <!-- 是否禁用 -->
+        <attr name="android:enabled" />
+    </declare-styleable>
+    <!--end-->
+
+    <!-- 设置界面的条目 -->
+    <declare-styleable name="SettingBar">
+        <!-- 左边 -->
+        <attr name="bar_leftText" format="string" />
+        <attr name="bar_leftHint" format="string" />
+        <attr name="bar_leftIcon" format="reference" />
+        <attr name="bar_leftColor" format="color" />
+        <attr name="bar_leftSize" format="dimension" />
+        <!-- 右边 -->
+        <attr name="bar_rightText" format="string" />
+        <attr name="bar_rightHint" format="string" />
+        <attr name="bar_rightIcon" format="reference" />
+        <attr name="bar_rightColor" format="color" />
+        <attr name="bar_rightSize" format="dimension" />
+        <!-- 分割线 -->
+        <attr name="bar_lineVisible" format="boolean" />
+        <attr name="bar_lineColor" format="reference|color" />
+        <attr name="bar_lineSize" format="dimension" />
+        <attr name="bar_lineMargin" format="dimension" />
+    </declare-styleable>
+    <!--end-->
+
+    <!-- 自定义编辑栏，用于手机号、验证码 -->
+    <declare-styleable name="customEdit">
+        <attr name="label" format="string" />
+        <attr name="hit" format="string" />
+        <attr name="length" format="integer" />
+        <attr name="input_typed" format="string" /> <!--number:纯数字类型, number_letter:数字与字母类型-->
+        <attr name="editable" format="boolean" />
+        <attr name="clear" format="boolean" />
+        <attr name="send_btn_enable" format="boolean" />
+        <attr name="divider_enable" format="boolean" />
+        <attr name="padding_left" format="dimension" />
+        <attr name="padding_right" format="dimension" />
+    </declare-styleable>
+
+    <!--自定义进度条progressBar start-->
+    <declare-styleable name="CustomProgressBar">
+        <!-- 进度条样式，默认值为 system -->
+        <attr name="bga_pb_mode" format="enum">
+            <!-- 系统自带样式 -->
+            <enum name="system" value="0" />
+            <!-- 水平进度条 -->
+            <enum name="horizontal" value="1" />
+            <!-- 圆形进度条 -->
+            <enum name="circle" value="2" />
+            <!-- 彗星进度条 -->
+            <enum name="comet" value="3" />
+            <!-- 水波纹进度条 -->
+            <enum name="wave" value="4" />
+        </attr>
+        <!-- 文字颜色，默认值为 #70A800 -->
+        <attr name="bga_pb_textColor" format="reference|color" />
+        <!-- 文字大小，默认值为 10sp -->
+        <attr name="bga_pb_textSize" format="dimension" />
+        <!-- 文字和进度条之间的间距，默认值为 4dp -->
+        <attr name="bga_pb_textMargin" format="dimension" />
+        <!-- 已完成进度的颜色，默认值为 #70A800 -->
+        <attr name="bga_pb_reachedColor" format="reference|color" />
+        <!-- 已完成进度的高度，默认值为 2dp -->
+        <attr name="bga_pb_reachedHeight" format="dimension" />
+        <!-- 未完成进度的颜色，默认值为 #CCCCCC -->
+        <attr name="bga_pb_unReachedColor" format="reference|color" />
+        <!-- 未完成进度的高度，默认值为 1dp -->
+        <attr name="bga_pb_unReachedHeight" format="dimension" />
+        <!-- 是否为圆角，默认值为 false -->
+        <attr name="bga_pb_isCapRounded" format="boolean" />
+        <!-- 是否隐藏文字，默认值为 false -->
+        <attr name="bga_pb_isHiddenText" format="boolean" />
+        <!-- 圆形进度条半径，默认值为 16dp -->
+        <attr name="bga_pb_radius" format="dimension" />
+    </declare-styleable>
+    <!--自定义进度条progressBar end-->
+
 
 </resources>

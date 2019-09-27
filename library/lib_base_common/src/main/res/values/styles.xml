@@ -81,4 +81,24 @@
         <item name="android:windowExitAnimation">@anim/dialog_right_out</item>
     </style>
     <!-- 对话框默认样式 end-->
+
+    <!--button样式start-->
+
+    <!-- 默认各类按钮样式 -->
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:foreground">@null</item>
+    </style>
+
+    <style name="button1" parent="ButtonStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/selector_button</item>
+    </style>
+
+    <!--button样式end-->
 </resources>
