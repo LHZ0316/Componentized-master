@@ -371,4 +371,10 @@ public class OneActivity extends BaseActivity {
                 break;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        KProgressUtil.newInstance().dismissProgress();
+    }
 }

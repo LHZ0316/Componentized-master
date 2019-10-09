@@ -10,35 +10,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="你好" />
-    <!--自定义TextView-->
-    <com.lhz.android.baseUtils.widget.CustomTextView
-        android:id="@+id/ctv_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="0123456789"
-        android:textSize="20sp" />
-    <!--自定义按钮-->
-    <com.lhz.android.baseUtils.widget.CustomButton
-        android:id="@+id/cb_button"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
-        android:text="自定义button"
-        android:textSize="16sp"
-        app:cb_background_border="1dp"
-        app:cb_background_border_color="#8cc63f"
-        app:cb_background_color="#22b9ec"
-        app:cb_background_text_color="#333333"
-        app:cb_radius="25dp" />
 
-    <FrameLayout
-        android:id="@+id/fl_content"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,185 +22,341 @@
             android:orientation="vertical">
 
 
-            <com.lhz.android.baseUtils.widget.CustomProgressBar
-                android:id="@+id/pb_main_demo2"
-                style="@android:style/Widget.ProgressBar.Horizontal"
+            <!--自定义TextView-->
+            <com.lhz.android.baseUtils.widget.CustomTextView
+                android:id="@+id/ctv_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:max="200"
-                android:padding="15dp"
-                android:progress="40"
-                app:bga_pb_mode="horizontal" />
-
-            <com.lhz.android.baseUtils.widget.CustomProgressBar
-                android:id="@+id/pb_main_demo3"
-                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="0123456789"
+                android:textSize="20sp" />
+            <!--自定义按钮-->
+            <com.lhz.android.baseUtils.widget.CustomButton
+                android:id="@+id/cb_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:progress="40"
-                app:bga_pb_isCapRounded="true"
-                app:bga_pb_mode="horizontal"
-                app:bga_pb_reachedColor="#FF530D"
-                app:bga_pb_reachedHeight="4dp"
-                app:bga_pb_textColor="#FF530D"
-                app:bga_pb_textMargin="8dp"
-                app:bga_pb_textSize="14sp"
-                app:bga_pb_unReachedColor="#ECF0F1"
-                app:bga_pb_unReachedHeight="2dp" />
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:text="自定义button"
+                android:textSize="16sp"
+                app:cb_background_border="1dp"
+                app:cb_background_border_color="#8cc63f"
+                app:cb_background_color="#22b9ec"
+                app:cb_background_text_color="#333333"
+                app:cb_radius="25dp" />
 
-            <com.lhz.android.baseUtils.widget.CustomProgressBar
-                android:id="@+id/pb_main_demo4"
-                style="@android:style/Widget.ProgressBar.Horizontal"
+            <FrameLayout
+                android:id="@+id/fl_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:progress="40"
-                app:bga_pb_isCapRounded="false"
-                app:bga_pb_isHiddenText="true"
-                app:bga_pb_mode="horizontal"
-                app:bga_pb_reachedColor="#FFC73B"
-                app:bga_pb_reachedHeight="4dp"
-                app:bga_pb_textColor="#FFC73B"
-                app:bga_pb_textMargin="8dp"
-                app:bga_pb_textSize="14sp"
-                app:bga_pb_unReachedColor="#ECF0F1"
-                app:bga_pb_unReachedHeight="2dp" />
+                android:layout_height="match_parent">
 
-            <com.lhz.android.baseUtils.widget.CustomProgressBar
-                android:id="@+id/pb_main_demo5"
-                style="@android:style/Widget.ProgressBar.Horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:max="200"
-                android:padding="15dp"
-                android:progress="40"
-                app:bga_pb_mode="circle" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-            <com.lhz.android.baseUtils.widget.CustomProgressBar
-                android:id="@+id/pb_main_demo6"
-                style="@android:style/Widget.ProgressBar.Horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:progress="40"
-                app:bga_pb_isCapRounded="true"
-                app:bga_pb_mode="circle"
-                app:bga_pb_radius="24dp"
-                app:bga_pb_reachedColor="#FF530D"
-                app:bga_pb_reachedHeight="4dp"
-                app:bga_pb_textColor="#FF530D"
-                app:bga_pb_textSize="14sp"
-                app:bga_pb_unReachedColor="#ECF0F1"
-                app:bga_pb_unReachedHeight="2dp" />
+                    <com.lhz.android.baseUtils.widget.HorizontalProgressBar
+                        android:id="@+id/pb"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        android:padding="2dp"
+                        app:zpb_progress="20" />
 
-            <com.lhz.android.baseUtils.widget.CustomProgressBar
-                android:id="@+id/pb_main_demo7"
-                style="@android:style/Widget.ProgressBar.Horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:progress="80"
-                app:bga_pb_isCapRounded="false"
-                app:bga_pb_isHiddenText="true"
-                app:bga_pb_mode="circle"
-                app:bga_pb_radius="24dp"
-                app:bga_pb_reachedColor="#FFC73B"
-                app:bga_pb_reachedHeight="6dp"
-                app:bga_pb_textColor="#FFC73B"
-                app:bga_pb_textSize="14sp"
-                app:bga_pb_unReachedColor="#ECF0F1"
-                app:bga_pb_unReachedHeight="6dp" />
+                    <com.lhz.android.baseUtils.widget.HorizontalProgressBar
+                        android:id="@+id/pb1"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        app:zpb_bg_color="#d8d8d8"
+                        app:zpb_gradient_from="#429321"
+                        app:zpb_gradient_to="#b4ec51"
+                        app:zpb_max="100"
+                        app:zpb_open_gradient="true"
+                        app:zpb_padding="1px"
+                        app:zpb_progress="50"
+                        app:zpb_second_pb_color="#f5a623"
+                        app:zpb_second_progress="50"
+                        app:zpb_show_second_point_shape="point"
+                        app:zpb_show_second_progress="true" />
+
+                    <com.lhz.android.baseUtils.widget.HorizontalProgressBar
+                        android:id="@+id/pb2"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        app:zpb_bg_color="#d8d8d8"
+                        app:zpb_gradient_from="#429321"
+                        app:zpb_gradient_to="#b4ec51"
+                        app:zpb_max="100"
+                        app:zpb_open_gradient="true"
+                        app:zpb_open_second_gradient="true"
+                        app:zpb_padding="1px"
+                        app:zpb_progress="50"
+                        app:zpb_second_gradient_from="#f76b1c"
+                        app:zpb_second_gradient_to="#fad961"
+                        app:zpb_second_pb_color="#f5a623"
+                        app:zpb_show_second_point_shape="line"
+                        app:zpb_show_second_progress="true" />
+
+                    <com.lhz.android.baseUtils.widget.HorizontalProgressBar
+                        android:id="@+id/pb3"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        app:zpb_padding="0dp"
+                        app:zpb_pb_color="@android:color/holo_green_dark"
+                        app:zpb_progress="50"
+                        app:zpb_show_mode="rect" />
+
+                    <com.lhz.android.baseUtils.widget.HorizontalProgressBar
+                        android:id="@+id/pb4"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        app:zpb_bg_color="#dbdbdb"
+                        app:zpb_gradient_from="#419120"
+                        app:zpb_gradient_to="#b3eb50"
+                        app:zpb_max="100"
+                        app:zpb_open_gradient="true"
+                        app:zpb_padding="1dp"
+                        app:zpb_progress="50"
+                        app:zpb_show_mode="rect" />
+
+                    <com.lhz.android.baseUtils.widget.HorizontalProgressBar
+                        android:id="@+id/pb5"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        app:zpb_bg_color="#0000"
+                        app:zpb_border_color="#85ff00"
+                        app:zpb_border_width="2dp"
+                        app:zpb_draw_border="true"
+                        app:zpb_gradient_from="#7f58A800"
+                        app:zpb_gradient_to="#7fa8e600"
+                        app:zpb_max="100"
+                        app:zpb_open_gradient="true"
+                        app:zpb_padding="0px"
+                        app:zpb_progress="50"
+                        app:zpb_round_rect_radius="4dp"
+                        app:zpb_show_mode="round_rect" />
+
+
+                    <com.lhz.android.baseUtils.widget.HorizontalProgressBar
+                        android:id="@+id/pb6"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        app:zpb_bg_color="#0000"
+                        app:zpb_border_color="#85ff00"
+                        app:zpb_border_width="2dp"
+                        app:zpb_draw_border="true"
+                        app:zpb_gradient_from="#7ff5515f"
+                        app:zpb_gradient_to="#7f9f041b"
+                        app:zpb_max="100"
+                        app:zpb_open_gradient="true"
+                        app:zpb_padding="0px"
+                        app:zpb_progress="20"
+                        app:zpb_round_rect_radius="4dp"
+                        app:zpb_show_mode="round" />
+
+
+                    <com.lhz.android.baseUtils.widget.CustomProgressBar
+                        android:id="@+id/pb_main_demo2"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="200"
+                        android:padding="15dp"
+                        android:progress="40"
+                        app:bga_pb_mode="horizontal" />
+
+                    <com.lhz.android.baseUtils.widget.CustomProgressBar
+                        android:id="@+id/pb_main_demo3"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:progress="40"
+                        app:bga_pb_isCapRounded="true"
+                        app:bga_pb_mode="horizontal"
+                        app:bga_pb_reachedColor="#FF530D"
+                        app:bga_pb_reachedHeight="4dp"
+                        app:bga_pb_textColor="#FF530D"
+                        app:bga_pb_textMargin="8dp"
+                        app:bga_pb_textSize="14sp"
+                        app:bga_pb_unReachedColor="#ECF0F1"
+                        app:bga_pb_unReachedHeight="2dp" />
+
+                    <com.lhz.android.baseUtils.widget.CustomProgressBar
+                        android:id="@+id/pb_main_demo4"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:progress="40"
+                        app:bga_pb_isCapRounded="false"
+                        app:bga_pb_isHiddenText="true"
+                        app:bga_pb_mode="horizontal"
+                        app:bga_pb_reachedColor="#FFC73B"
+                        app:bga_pb_reachedHeight="4dp"
+                        app:bga_pb_textColor="#FFC73B"
+                        app:bga_pb_textMargin="8dp"
+                        app:bga_pb_textSize="14sp"
+                        app:bga_pb_unReachedColor="#ECF0F1"
+                        app:bga_pb_unReachedHeight="2dp" />
+
+                    <com.lhz.android.baseUtils.widget.CustomProgressBar
+                        android:id="@+id/pb_main_demo5"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:max="200"
+                        android:padding="15dp"
+                        android:progress="40"
+                        app:bga_pb_mode="circle" />
+
+                    <com.lhz.android.baseUtils.widget.CustomProgressBar
+                        android:id="@+id/pb_main_demo6"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:progress="40"
+                        app:bga_pb_isCapRounded="true"
+                        app:bga_pb_mode="circle"
+                        app:bga_pb_radius="24dp"
+                        app:bga_pb_reachedColor="#FF530D"
+                        app:bga_pb_reachedHeight="4dp"
+                        app:bga_pb_textColor="#FF530D"
+                        app:bga_pb_textSize="14sp"
+                        app:bga_pb_unReachedColor="#ECF0F1"
+                        app:bga_pb_unReachedHeight="2dp" />
+
+                    <com.lhz.android.baseUtils.widget.CustomProgressBar
+                        android:id="@+id/pb_main_demo7"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:progress="80"
+                        app:bga_pb_isCapRounded="false"
+                        app:bga_pb_isHiddenText="true"
+                        app:bga_pb_mode="circle"
+                        app:bga_pb_radius="24dp"
+                        app:bga_pb_reachedColor="#FFC73B"
+                        app:bga_pb_reachedHeight="6dp"
+                        app:bga_pb_textColor="#FFC73B"
+                        app:bga_pb_textSize="14sp"
+                        app:bga_pb_unReachedColor="#ECF0F1"
+                        app:bga_pb_unReachedHeight="6dp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="100dp"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+
+                    <com.lhz.android.baseUtils.widget.SmsEditText
+                        android:id="@+id/phone_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        app:hit="请输入手机号"
+                        app:input_typed="number"
+                        app:label="手机号"
+                        app:length="11"
+                        app:padding_left="16dp"
+                        app:padding_right="16dp"
+                        app:send_btn_enable="false" />
+
+                    <com.lhz.android.baseUtils.widget.SmsEditText
+                        android:id="@+id/sms_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:divider_enable="false"
+                        app:hit="请输入短信验证码"
+                        app:input_typed="number_letter"
+                        app:label="验证码"
+                        app:length="6"
+                        app:padding_left="16dp"
+                        app:padding_right="16dp" />
+
+                    <Button
+                        android:id="@+id/mb_button1"
+                        style="@style/button1"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:text="弹框1" />
+
+                    <Button
+                        android:id="@+id/mb_button2"
+                        style="@style/button1"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:text="弹框2" />
+
+                    <Button
+                        android:id="@+id/mb_button3"
+                        style="@style/button1"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:text="弹框3" />
+
+                    <Button
+                        android:id="@+id/mb_button4"
+                        style="@style/button1"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:text="弹框4" />
+
+                    <Button
+                        android:id="@+id/mb_button5"
+                        style="@style/button1"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:text="弹框5" />
+
+                    <Button
+                        android:id="@+id/mb_button6"
+                        style="@style/button1"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:text="弹框6" />
+                </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="100dp"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-
-            <com.lhz.android.baseUtils.widget.SmsEditText
-                android:id="@+id/phone_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                app:hit="请输入手机号"
-                app:input_typed="number"
-                app:label="手机号"
-                app:length="11"
-                app:padding_left="16dp"
-                app:padding_right="16dp"
-                app:send_btn_enable="false" />
-
-            <com.lhz.android.baseUtils.widget.SmsEditText
-                android:id="@+id/sms_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:divider_enable="false"
-                app:hit="请输入短信验证码"
-                app:input_typed="number_letter"
-                app:label="验证码"
-                app:length="6"
-                app:padding_left="16dp"
-                app:padding_right="16dp" />
-
-            <Button
-                android:id="@+id/mb_button1"
-                style="@style/button1"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:text="弹框1" />
-
-            <Button
-                android:id="@+id/mb_button2"
-                style="@style/button1"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:text="弹框2" />
-
-            <Button
-                android:id="@+id/mb_button3"
-                style="@style/button1"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:text="弹框3" />
-
-            <Button
-                android:id="@+id/mb_button4"
-                style="@style/button1"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:text="弹框4" />
-
-            <Button
-                android:id="@+id/mb_button5"
-                style="@style/button1"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:text="弹框5" />
-
-            <Button
-                android:id="@+id/mb_button6"
-                style="@style/button1"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:text="弹框6" />
-        </LinearLayout>
-
-    </FrameLayout>
-
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
