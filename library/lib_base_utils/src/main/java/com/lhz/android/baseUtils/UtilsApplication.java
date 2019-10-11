@@ -15,6 +15,7 @@ public class UtilsApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mApplication = this;
+        // 初始化工具类
         ContextUtils.init(this);
     }
 

@@ -3,7 +3,6 @@ package com.xiaodou.common.sql;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.lhz.android.baseUtils.UtilsApplication;
 import com.xiaodou.common.MainApplication;
 
 import java.util.List;
