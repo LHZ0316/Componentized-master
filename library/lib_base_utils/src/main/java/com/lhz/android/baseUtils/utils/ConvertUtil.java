@@ -7,7 +7,29 @@ import java.util.logging.Logger;
  * Created by lhz on 2015/11/17.
  * 数字转换辅助类
  */
-public class NumberConvert {
+public class ConvertUtil {
+    /**
+     * @param value
+     * @param defaultValue
+     * @return String
+     * @throws
+     * @Description: 对象转化为String类型
+     */
+    public  static String convertToString(Object value, String defaultValue) {
+        if (value == null || "".equals(value.toString().trim())) {
+            return defaultValue;
+        }
+        try {
+            return String.valueOf(value.toString());
+        } catch (Exception e) {
+            try {
+                return String.valueOf(value.toString()).trim();
+            } catch (Exception e1) {
+                return defaultValue;
+            }
+        }
+    }
+
     /**
      * @param value
      * @param defaultValue
@@ -15,7 +37,7 @@ public class NumberConvert {
      * @throws
      * @Description: 对象转化为int类型
      */
-    public final static int convertToInt(Object value, int defaultValue) {
+    public  static int convertToInt(Object value, int defaultValue) {
         if (value == null || "".equals(value.toString().trim())) {
             return defaultValue;
         }
@@ -37,7 +59,7 @@ public class NumberConvert {
      * @throws
      * @Description: 对象转化为float类型
      */
-    public final static float convertToFloat(Object value, float defaultValue) {
+    public static float convertToFloat(Object value, float defaultValue) {
         if (value == null || "".equals(value.toString().trim())) {
             return defaultValue;
         }
@@ -55,11 +77,11 @@ public class NumberConvert {
     /**
      * @param value
      * @param defaultValue
-     * @return float
+     * @return double
      * @throws
-     * @Description: 对象转化为float类型
+     * @Description: 对象转化为double类型
      */
-    public final static double convertToDouble(Object value, Double defaultValue) {
+    public  static double convertToDouble(Object value, Double defaultValue) {
         if (value == null || "".equals(value.toString().trim())) {
             return defaultValue;
         }
@@ -84,7 +106,7 @@ public class NumberConvert {
      */
     public final static long convertToLong(Object value, Long defaultValue) {
         if (value == null || "".equals(value.toString().trim())) {
-            Logger log = Logger.getLogger("NumberConvert");
+            Logger log = Logger.getLogger("ConvertUtil");
             log.setLevel(Level.INFO);
             log.info(String.valueOf(defaultValue));
             return defaultValue;
@@ -92,7 +114,7 @@ public class NumberConvert {
         try {
             return Long.valueOf(value.toString());
         } catch (Exception e) {
-            Logger log = Logger.getLogger("NumberConvert");
+            Logger log = Logger.getLogger("ConvertUtil");
             log.setLevel(Level.INFO);
             log.info(e.toString());
             return defaultValue;

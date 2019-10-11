@@ -9,20 +9,20 @@ import com.lhz.android.libBaseCommon.https.public_parameters.HeadersPublic;
  * Created by lhz on 2016/10/18.
  */
 
-public class BaseSP {
+public class BSPKey {
 
     /**
      * 渠道信息
      */
     public static void setChannel(Context context, String supportBankUrl) {
-        BaseSPUtil.put(context, HeadersPublic.CHANNEL, supportBankUrl);
+        BSPUtil.put(context, HeadersPublic.CHANNEL, supportBankUrl);
     }
 
     /**
      * 渠道信息
      */
     public static String getChannel(Context context) {
-        return (String) BaseSPUtil.get(context, HeadersPublic.CHANNEL, "0");
+        return (String) BSPUtil.get(context, HeadersPublic.CHANNEL, "0");
     }
 
 }

@@ -18,10 +18,8 @@ import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,6 +28,7 @@ import android.widget.Toast;
 import com.lhz.android.libBaseCommon.R;
 import com.lhz.android.libBaseCommon.eventbus.EventType;
 import com.lhz.android.libBaseCommon.statelayout.RPageStatusController;
+import com.lhz.android.libBaseCommon.utils.AppManager;
 import com.lhz.android.libBaseCommon.utils.StatusBarUtil;
 import com.lhz.android.libBaseCommon.utils.Utils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -103,7 +102,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         rxPermissions = new RxPermissions(this);
-        ViewManager.getInstance().addActivity(this);
+        AppManager.getInstance().addActivity(this);
         // 设置状态栏颜色
         StatusBarUtil.setColor(this, getResources().getColor(R.color.white), 0);
         setNavigationBarColor(this);
@@ -227,7 +226,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         // 移除和这个 Activity 相关的消息回调
         HANDLER.removeCallbacksAndMessages(mHandlerToken);
         // 移除栈
-        ViewManager.getInstance().finishActivity(this);
+        AppManager.getInstance().finishActivity(this);
         // 注销eventBus
         EventBus.getDefault().unregister(this);
     }

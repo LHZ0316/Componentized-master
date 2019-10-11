@@ -30,7 +30,7 @@ import java.lang.ref.WeakReference;
 @Route(path = RouterPath.MAIN_ACTIVITY)
 public class LaunchActivity extends BaseMainActivity<IMainContract.LaunchView, LaunchPresenter>
         implements IMainContract.LaunchView {
-    private int time = 1;
+    private int time = 2;
     private myHandler myHandler;
 
     /**

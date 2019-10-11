@@ -117,4 +117,6 @@ dependencies {
     //图片轮播控件
     api dependencie.banner
 
+    //捕捉本地bug
+    api dependencie.customactivityoncrash
 }

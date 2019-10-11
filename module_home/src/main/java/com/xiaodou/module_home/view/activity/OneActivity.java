@@ -4,14 +4,17 @@ import android.Manifest;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.lhz.android.baseUtils.utils.DeviceIdUtil;
 import com.lhz.android.baseUtils.utils.DialogUtils;
 import com.lhz.android.baseUtils.utils.KProgressUtil;
+import com.lhz.android.baseUtils.utils.SPKey;
+import com.lhz.android.baseUtils.utils.SPUtil;
+import com.lhz.android.baseUtils.utils.StringUtils;
 import com.lhz.android.baseUtils.widget.CustomButton;
 import com.lhz.android.baseUtils.widget.CustomTextView;
 import com.lhz.android.baseUtils.widget.SendButton;
@@ -21,23 +24,22 @@ import com.lhz.android.libBaseCommon.cache.CacheBean;
 import com.lhz.android.libBaseCommon.cache.DiskCache;
 import com.lhz.android.libBaseCommon.dialog.AddressDialog;
 import com.lhz.android.libBaseCommon.dialog.BaseDialog;
-import com.lhz.android.libBaseCommon.dialog.BaseDialogFragment;
-import com.lhz.android.libBaseCommon.dialog.DateDialog;
 import com.lhz.android.libBaseCommon.dialog.MessageDialog;
-import com.lhz.android.libBaseCommon.dialog.TimeDialog;
 import com.lhz.android.libBaseCommon.statelayout.annotation.RPageStatus;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.Permission;
+import com.xiaodou.common.MainApplication;
+import com.xiaodou.common.sql.DbDemoHelper;
+import com.xiaodou.common.sql.SQLiteDemo;
 import com.xiaodou.module_home.R;
 import com.xiaodou.module_home.R2;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
-import io.reactivex.internal.observers.LambdaObserver;
 
 
 /**
@@ -136,7 +138,38 @@ public class OneActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        SPUtil.clear(MainApplication.getInstance());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //获取保存在sd中的 设备唯一标识符
+                    String readDeviceID = DeviceIdUtil.readDeviceID(MainApplication.getInstance());
+                    //获取缓存在  sharepreference 里面的 设备唯一标识
+                    String string = (String) SPUtil.get(MainApplication.getInstance(), SPKey.SP_DEVICES_ID, readDeviceID);
+                    //判断 app 内部是否已经缓存,  若已经缓存则使用app 缓存的 设备id
+                    if (string != null) {
+                        //app 缓存的和SD卡中保存的不相同 以app 保存的为准, 同时更新SD卡中保存的 唯一标识符
+                        if (StringUtils.isEmpty(readDeviceID) && !string.equals(readDeviceID)) {
+                            // 取有效地 app缓存 进行更新操作
+                            if (StringUtils.isEmpty(readDeviceID) && !StringUtils.isEmpty(string)) {
+                                readDeviceID = string;
+                                DeviceIdUtil.saveDeviceID(readDeviceID, MainApplication.getInstance());
+                            }
+                        }
+                    }
+                    // app 没有缓存 (这种情况只会发生在第一次启动的时候)
+                    if (StringUtils.isEmpty(readDeviceID)) {
+                        //保存设备id
+                        readDeviceID = DeviceIdUtil.getDeviceId(MainApplication.getInstance());
+                    }
+                    //左后再次更新app 的缓存
+                    SPUtil.put(MainApplication.getInstance(), SPKey.SP_DEVICES_ID, readDeviceID);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     @OnClick({R2.id.mb_button1, R2.id.mb_button2, R2.id.mb_button3, R2.id.mb_button4, R2.id.mb_button5, R2.id.mb_button6})
@@ -164,9 +197,26 @@ public class OneActivity extends BaseActivity {
                 }
             });
 
+            SQLiteDemo p = new SQLiteDemo();
+            p.setName("展昭");
+            p.setId(1);
 
+            DbDemoHelper.getInstance().insertModel(p);
+            Logger.e("====save success====");
+
+            List<SQLiteDemo> persons = (List<SQLiteDemo>) DbDemoHelper.getInstance().checkAll();
+            if (persons.isEmpty()) {
+                Logger.e("=====persons is null=====");
+            } else {
+                for (SQLiteDemo pt : persons) {
+                    Logger.e("=====pt==" + pt.getName());
+                }
+            }
         } else if (i == R.id.mb_button2) {
 
+            String s = (String) SPUtil.get(MainApplication.getInstance(), SPKey.SP_DEVICES_ID, "");
+
+            Logger.w("设备唯一ID===========" + s);
             Logger.w("加载框===========2");
             KProgressUtil.newInstance().showProgress(this);
 

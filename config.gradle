@@ -83,6 +83,9 @@ ext {
 
             //热修复
             bugly                    : '1.3.4',
+
+            //捕捉bug
+            customactivityoncrash    : '2.2.0',
     ]
 
     dependencies = [
@@ -148,6 +151,10 @@ ext {
 
             // https://github.com/google/gson
             gson                     : "com.google.code.gson:gson:$versions.gson",
+
+            // https://github.com/Ereza/CustomActivityOnCrash
+            // 崩溃日志
+            customactivityoncrash    : "cat.ereza:customactivityoncrash:$versions.customactivityoncrash",
 
             // glide 图像处理
             // https://github.com/bumptech/glide

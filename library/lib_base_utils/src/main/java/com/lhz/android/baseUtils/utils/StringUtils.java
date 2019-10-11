@@ -1,10 +1,21 @@
 package com.lhz.android.baseUtils.utils;
 
+import android.support.annotation.Nullable;
+import android.widget.TextView;
+
+import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * 字符串相关工具类
+ *
+ * 1、拼接字符串
+ * 2、判断字符串是否为空
+ * 3、字符串转换 double、 int 、.00字符串
+ * 4、检查字符串长度
+ * 5、获取字符串
+ * 6、判断字符串是否相等
  */
 public class StringUtils {
 
@@ -38,21 +49,108 @@ public class StringUtils {
     /**
      * 判断字符串是否为null或长度为0
      *
-     * @param s 待校验字符串
+     * @param str 待校验字符串
      * @return {@code true}: 空<br> {@code false}: 不为空
      */
-    public static boolean isEmpty(CharSequence s) {
-        return s == null || s.length() == 0;
+    public static boolean isEmpty(@Nullable String str) {
+        return str == null || str.length() == 0 || "null".equals(str);
     }
 
     /**
-     * 判断字符串是否为null或全为空格
+     * 将字符串格式化为带两位小数的字符串
      *
-     * @param s 待校验字符串
-     * @return {@code true}: null或全空格<br> {@code false}: 不为null且不全空格
+     * @param str 字符串
+     * @return
      */
-    public static boolean isSpace(String s) {
-        return (s == null || s.trim().length() == 0);
+    public static String format2Decimals(String str) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        if (df.format(stringToDouble(str)).startsWith(".")) {
+            return "0" + df.format(stringToDouble(str));
+        } else {
+            return df.format(stringToDouble(str));
+        }
+    }
+
+    /**
+     * 字符串转换成double ,转换失败将会 return 0;
+     *
+     * @param str 字符串
+     * @return
+     */
+    public static double stringToDouble(String str) {
+        if (isEmpty(str)) {
+            return 0;
+        } else {
+            try {
+                return Double.parseDouble(str);
+            } catch (NumberFormatException e) {
+                return 0;
+            }
+        }
+    }
+
+    /**
+     * 字符串转换成整数 ,转换失败将会 return 0;
+     *
+     * @param str 字符串
+     * @return
+     */
+    public static int stringToInt(String str) {
+        if (isEmpty(str)) {
+            return 0;
+        } else {
+            try {
+                return Integer.parseInt(str);
+            } catch (NumberFormatException e) {
+                return 0;
+            }
+        }
+    }
+
+    /**
+     * 检查字符串长度，如果字符串的长度超过maxLength，就截取前maxLength个字符串并在末尾拼上…
+     */
+    public static String checkLength(String string, int maxLength) {
+        return checkLength(string, maxLength, "…");
+    }
+
+    /**
+     * 检查字符串长度，如果字符串的长度超过maxLength，就截取前maxLength个字符串并在末尾拼上appendString
+     */
+    public static String checkLength(String string, int maxLength, String appendString) {
+        if (string.length() > maxLength) {
+            string = string.substring(0, maxLength);
+            if (appendString != null) {
+                string += appendString;
+            }
+        }
+        return string;
+    }
+
+    /**
+     * 获取字符串
+     *
+     * @param s 待转字符串
+     * @return s为null转为长度为0字符串，否则不改变
+     */
+
+    public static String getString(String s) {
+        return s == null ? "" : s;
+    }
+
+    public static String getString(CharSequence cs) {
+        return cs == null ? "" : getString(cs.toString());
+    }
+
+    public static String getString(Object object) {
+        return object == null ? "" : getString(String.valueOf(object));
+    }
+
+    public static String getString(TextView tv) {
+        if (tv == null || tv.getText() == null) {
+            return "";
+        }
+        return getString(tv.getText().toString());
     }
 
     /**
@@ -79,7 +177,7 @@ public class StringUtils {
     }
 
     /**
-     * 判断两字符串忽略大小写是否相等
+     * 判断两字符串，忽略大小写是否相等
      *
      * @param a 待校验字符串a
      * @param b 待校验字符串b
@@ -89,15 +187,6 @@ public class StringUtils {
         return (a == b) || (b != null) && (a.length() == b.length()) && a.regionMatches(true, 0, b, 0, b.length());
     }
 
-    /**
-     * null转为长度为0的字符串
-     *
-     * @param s 待转字符串
-     * @return s为null转为长度为0字符串，否则不改变
-     */
-    public static String null2Length0(String s) {
-        return s == null ? "" : s;
-    }
 
     /**
      * 返回字符串长度
@@ -152,6 +241,60 @@ public class StringUtils {
     }
 
     /**
+     * 判断字符类型是否是号码或字母
+     *
+     * @param input
+     * @return
+     */
+    public static boolean isNumberOrAlpha(String input) {
+        if (input == null) {
+            return false;
+        }
+        Pattern pNumber = Pattern.compile("[0-9]*");
+        Matcher mNumber;
+        Pattern pAlpha = Pattern.compile("[a-zA-Z]");
+        Matcher mAlpha;
+        for (int i = 0; i < input.length(); i++) {
+            mNumber = pNumber.matcher(input.substring(i, i + 1));
+            mAlpha = pAlpha.matcher(input.substring(i, i + 1));
+            if (!mNumber.matches() && !mAlpha.matches()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 验证是否是手机号码
+     *
+     * @param str 需要判断的字符串
+     * @return 是手机号码返回true
+     */
+    public static boolean isPhoneNumber(String str) {
+        if (isEmpty(str)) {
+            return false;
+        }
+        String regex = "^[1][345789][0-9]{9}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher isPhone = pattern.matcher(str);
+        return isPhone.matches();
+    }
+
+    /**
+     * @param number 号码
+     * @return XXX****XXXX
+     */
+    public static String secretNumber(String number) {
+        try {
+            return number.substring(0, 3).concat("****")
+                    .concat(number.substring(7, number.length()));
+        } catch (Exception e) {
+            return "";
+        }
+
+    }
+
+    /**
      * 转化为半角字符
      *
      * @param s 待转字符串
@@ -192,46 +335,4 @@ public class StringUtils {
         }
         return new String(chars);
     }
-
-    /**
-     * 验证是否是手机号码
-     *
-     * @param str 需要判断的字符串
-     * @return 是手机号码返回true
-     */
-    public static boolean isPhoneNumber(String str) {
-        String regex = "^[1][345789][0-9]{9}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher isPhone = pattern.matcher(str);
-        return isPhone.matches();
-    }
-
-    /**
-     * @param number 号码
-     * @return XXX****XXXX
-     */
-    public static String secretNumber(String number) {
-        try {
-            return number.substring(0, 3).concat("****")
-                    .concat(number.substring(7, number.length()));
-        } catch (Exception e) {
-            return "";
-        }
-
-    }
-
-
-    /**
-     * 转换格式保留两位小数
-     */
-    public static String formatDouble(String d) {
-
-        try {
-            return String.format("%.2f", Double.parseDouble(d));
-        } catch (Exception e) {
-            return "0.00";
-        }
-
-    }
-
 }
