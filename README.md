@@ -24,18 +24,24 @@ lib_base_utils  工具类库
 * 统一的音视频播放
 
 lib_thermal_repair 热更新库
+* 引用库
+        //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.0.0
+        compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+        //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
+        compile 'com.tencent.bugly:nativecrashreport:latest.release'
+* 1、编译基准包(普通打包)
+* 2、对基线版本的bug修复
+* 3、根据基线版本生成补丁包，7zip
+* 4、上传补丁包到平台
 
 lib_share_push 分享库
+* 直接创建ShareDialog对象，调用show
+
 
 # 知识点
 * 组件化，Mvp框架，retrofit2，rxJava2，rxLifecycle2
 
 * Material Design 常用控件
-
-* androidStudio 3.5 与 androidX
-
-模块化 与 组件化
-
 * SwipeRefreshLayout
 * Toolbar
 * TabLayout
@@ -53,9 +59,64 @@ lib_share_push 分享库
 * BottomSheet
 * Chip、ChipGroups、ChipDrawable
 
+* androidStudio 3.5 与 androidX
+
+模块化 与 组件化
 
 # 第三方SDK
 友盟-统计，shareSDK-分享，Bugly-热修复，个推-消息推送
+
+* 友盟统计
+
+        1、添加自己的应用，获取到应用唯一的AppKey；
+        2、implementation 'com.umeng.sdk:common:latest.integration'；
+           implementation 'com.umeng.sdk:analytics:latest.integration'
+        3、/*
+               * 初始化common库
+               * 参数1:上下文，不能为空
+               * 参数2:【友盟+】 AppKey(第一步从官网获取到的)
+               * 参数3:【友盟+】 Channel（多渠道打包时用的到）
+               * 参数4:设备类型，UMConfigure.DEVICE_TYPE_PHONE为手机、UMConfigure.DEVICE_TYPE_BOX为盒子，默认为手机
+               * 参数5:Push推送业务的secret,需要集成Push功能时必须传入Push的secret，否则传空。
+               */
+           UMConfigure.init(this, "you AppKey", "you channel", UMConfigure.DEVICE_TYPE_PHONE, null);
+           // 打开统计SDK调试模式（上线时记得关闭）
+           UMConfigure.setLogEnabled(true);
+
+* 极光推送
+
+        1、   compile 'cn.jiguang.sdk:jpush:3.3.6'  // 此处以JPush 3.3.6 版本为例。
+              compile 'cn.jiguang.sdk:jcore:2.1.6'  // 此处以JCore 2.1.6 版本为例。
+
+*Leakcancary的使用
+*https://blog.csdn.net/qq_39037047/article/details/79563423
+
+        public class BaseApplication extends Application {
+
+            private RefWatcher refWatcher;
+            @Override
+            public void onCreate() {
+                super.onCreate();
+                refWatcher= setupLeakCanary();//2
+            }
+            private RefWatcher setupLeakCanary() {
+                if (LeakCanary.isInAnalyzerProcess(this)) {
+                    return RefWatcher.DISABLED;
+                }
+                return LeakCanary.install(this);//1
+            }
+
+            public static RefWatcher getRefWatcher(Context context) {
+                BaseApplication leakApplication = (BaseApplication) context.getApplicationContext();
+                return leakApplication.refWatcher;
+            }
+
+        @Override
+        protected void onDestroy() {
+            super.onDestroy();
+            RefWatcher refWatcher = BaseApplication.getRefWatcher(this);//1
+            refWatcher.watch(this);
+        }
 
 # 使用方法
 config.gradle的配置

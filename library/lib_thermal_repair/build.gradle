@@ -40,9 +40,18 @@ dependencies {
     androidTestImplementation dependencie.runner
     androidTestImplementation dependencie.core
 
-    // 集成热更新
+    /*热更新集成*/
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.3.2
     api dependencie.bugly
     //如果想使用NDK库，需要配置：compile'c​​om.tencent.bugly：nativecrashreport：latest.release'
     api dependencie.bugly_nativecrashreport
+
+    /*友盟集成*/
+    api dependencie.umeng_common
+    api dependencie.umeng_analytics
+
+    /*内存泄漏*/
+    api dependencie.leakcanary_debug
+    api dependencie.leakcanary_release
+    api dependencie.leakcanary_support_fragment
 }

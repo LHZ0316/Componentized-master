@@ -48,6 +48,7 @@ public class ShareDialog extends Dialog {
     public ShareDialog(Context context, String title, String titleUrl, String description, Bitmap imgData, String site) {
         this(context, title, titleUrl, description, imgData, site, null);
         this.mIsInviteShare = false;
+        init();
     }
 
     public ShareDialog(Context context, String title, String titleUrl, String description, Bitmap imgData, String site, OnCountShareWxListener listener) {

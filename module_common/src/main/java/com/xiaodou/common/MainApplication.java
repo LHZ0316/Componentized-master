@@ -14,11 +14,9 @@ import com.lhz.android.libBaseCommon.statelayout.IRPageStatusController;
 import com.lhz.android.libBaseCommon.statelayout.RPageStatusManager;
 import com.lhz.android.libBaseCommon.statelayout.annotation.RPageStatus;
 import com.lhz.android.libBaseCommon.statelayout.listener.OnRPageEventListener;
-import com.lhz.android.libBaseCommon.utils.Utils;
 import com.mob.MobSDK;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
-import com.xiaodou.common.widget.lock.LockPatternUtils;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 
@@ -32,7 +30,6 @@ import cat.ereza.customactivityoncrash.config.CaocConfig;
 
 public class MainApplication extends BaseApplication {
     private static MainApplication mApplication;
-    private LockPatternUtils mLockPatternUtils;
 
     @Override
     public void onCreate() {
@@ -45,11 +42,10 @@ public class MainApplication extends BaseApplication {
         // 初始化shareSDK分享
         MobSDK.init(this, "2698513ea990", "33e2857eb692b77079ccd5cc28799eea");
 
-        // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
-        // 调试时，将第三个参数改为true
-        Bugly.init(this, "fce6ddb348", true);
+        // SDK初始化热更新，调试时，替换自己的appId，将第三个参数改为true
+        Bugly.init(this, "fce6ddb348", BuildConfig.LOG_DEBUG);
 
-        // 打印日志
+        // 日志打印
         Logger.addLogAdapter(new AndroidLogAdapter() {
             @Override
             public boolean isLoggable(int priority, String tag) {
@@ -73,7 +69,7 @@ public class MainApplication extends BaseApplication {
                     }
                 });
 
-        //整个配置属性，可以设置一个或多个，也可以一个都不设置
+        //收集bug崩溃日志
         CaocConfig.Builder.create()
                 //程序在后台时，发生崩溃的三种处理方式
                 //BackgroundMode.BACKGROUND_MODE_SHOW_CUSTOM: //当应用程序处于后台时崩溃，也会启动错误页面，
@@ -85,7 +81,7 @@ public class MainApplication extends BaseApplication {
                 .showRestartButton(true)    //是否可以重启页面
                 .trackActivities(true)     //错误页面中显示错误详细信息
                 .minTimeBetweenCrashesMs(2000)      //定义应用程序崩溃之间的最短时间，以确定我们不在崩溃循环中。比如：在规定的时间内再次崩溃，框架将不处理，让系统处理！
-                .errorDrawable(R.mipmap.ic_launcher)     //崩溃页面显示的图标
+                .errorDrawable(R.drawable.ic_logo_application)     //崩溃页面显示的图标
                 .errorActivity(DefaultErrorActivity.class) //程序崩溃后显示的页面
                 .eventListener(new CustomEventListener())//设置监听
                 .apply();
@@ -120,12 +116,6 @@ public class MainApplication extends BaseApplication {
         return mApplication;
     }
 
-    public LockPatternUtils getLockPatternUtils() {
-        if (mLockPatternUtils == null) {
-            mLockPatternUtils = new LockPatternUtils(mApplication);
-        }
-        return mLockPatternUtils;
-    }
 
     /**
      * 监听程序崩溃/重启

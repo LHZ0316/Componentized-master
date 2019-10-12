@@ -1,8 +1,8 @@
 ext {
 
     appID = [
-            "app": "com.lhz.xiaodou",//正确的包名
-            "test": "com.lhz.xiaodou_test",//调式的包名
+            "app"   : "com.lhz.xiaodou",//正确的包名
+            "test"  : "com.lhz.xiaodou_test",//调式的包名
             "huawei": "com.lhz.xiaodou_huawei"//调式的包名
 
     ]
@@ -90,106 +90,120 @@ ext {
     ]
 
     dependencies = [
-            junit                    : "junit:junit:$versions.junit",
-            runner                   : "com.android.support.test:runner:$versions.runner",
-            core                     : "com.android.support.test.espresso:espresso-core:$versions.espresso_core",
+            junit                      : "junit:junit:$versions.junit",
+            runner                     : "com.android.support.test:runner:$versions.runner",
+            core                       : "com.android.support.test.espresso:espresso-core:$versions.espresso_core",
 
             // 约束布局
-            constraint_layout        : "com.android.support.constraint:constraint-layout:$versions.constraint_layout",
-            appcompat_v7             : "com.android.support:appcompat-v7:$versions.support",
-            support_v4               : "com.android.support:support-v4:$versions.support",
-            design                   : "com.android.support:design:$versions.support",
-            cardview                 : "com.android.support:cardview-v7:$versions.support",
-            recyclerview             : "com.android.support:recyclerview-v7:$versions.support",
-            customtabs               : "com.android.support:customtabs:$versions.support",
-            percent                  : "com.android.support:percent:$versions.support",
+            constraint_layout          : "com.android.support.constraint:constraint-layout:$versions.constraint_layout",
+            appcompat_v7               : "com.android.support:appcompat-v7:$versions.support",
+            support_v4                 : "com.android.support:support-v4:$versions.support",
+            design                     : "com.android.support:design:$versions.support",
+            cardview                   : "com.android.support:cardview-v7:$versions.support",
+            recyclerview               : "com.android.support:recyclerview-v7:$versions.support",
+            customtabs                 : "com.android.support:customtabs:$versions.support",
+            percent                    : "com.android.support:percent:$versions.support",
 
             // dex
-            multidex                 : "com.android.support:multidex:$versions.multidex",
+            multidex                   : "com.android.support:multidex:$versions.multidex",
 
             // ARouter
             // https://github.com/alibaba/ARouter
-            arouter_api              : "com.alibaba:arouter-api:$versions.arouter_api",
-            arouter_compiler         : "com.alibaba:arouter-compiler:$versions.arouter_compiler",
+            arouter_api                : "com.alibaba:arouter-api:$versions.arouter_api",
+            arouter_compiler           : "com.alibaba:arouter-compiler:$versions.arouter_compiler",
 
             // Kotlin
-            kotlin_stdlib_jdk8       : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin_version",
-            kotlin_gradle_plugin     : "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin_version",
+            kotlin_stdlib_jdk8         : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin_version",
+            kotlin_gradle_plugin       : "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin_version",
 
             // Dagger2
-            dagger2                  : "com.google.dagger:dagger:$versions.dagger2",
-            dagger2_compiler         : "com.google.dagger:dagger-compiler:$versions.dagger2_compiler",
+            dagger2                    : "com.google.dagger:dagger:$versions.dagger2",
+            dagger2_compiler           : "com.google.dagger:dagger-compiler:$versions.dagger2_compiler",
 
             // AOP开发 面向切面编程
-            aspectjtools             : "org.aspectj:aspectjtools:$versions.aspectj",
-            aspectjrt                : "org.aspectj:aspectjrt:$versions.aspectj",
-            aspectjx                 : "com.hujiang.aspectjx:gradle-android-plugin-aspectjx:$versions.aspectjx",
+            aspectjtools               : "org.aspectj:aspectjtools:$versions.aspectj",
+            aspectjrt                  : "org.aspectj:aspectjrt:$versions.aspectj",
+            aspectjx                   : "com.hujiang.aspectjx:gradle-android-plugin-aspectjx:$versions.aspectjx",
 
             // https://github.com/ReactiveX/RxAndroid
             // https://github.com/ReactiveX/RxJava
-            rxjava                   : "io.reactivex.rxjava2:rxjava:$versions.rxjava",
-            rxandroid2               : "io.reactivex.rxjava2:rxandroid:$versions.rxandroid2",
-            rxlifecycle_components   : "com.trello.rxlifecycle2:rxlifecycle-components:$versions.rxlifecycle_components",
-            rxlifecycle              : "com.trello.rxlifecycle2:rxlifecycle:$versions.rxlifecycle",
+            rxjava                     : "io.reactivex.rxjava2:rxjava:$versions.rxjava",
+            rxandroid2                 : "io.reactivex.rxjava2:rxandroid:$versions.rxandroid2",
+            rxlifecycle_components     : "com.trello.rxlifecycle2:rxlifecycle-components:$versions.rxlifecycle_components",
+            rxlifecycle                : "com.trello.rxlifecycle2:rxlifecycle:$versions.rxlifecycle",
 
             // 权限处理
             // https://github.com/tbruyelle/RxPermissions
-            rxpermissions            : "com.tbruyelle.rxpermissions2:rxpermissions:$versions.rxpermissions",
+            rxpermissions              : "com.tbruyelle.rxpermissions2:rxpermissions:$versions.rxpermissions",
 
             // https://github.com/square/okhttp
-            okhttp3                  : "com.squareup.okhttp3:okhttp:$versions.okhttp3",
-            okhttp3_logging          : "com.squareup.okhttp3:logging-interceptor:$versions.okhttp3_logging",
-            okio                     : "com.squareup.okio:okio:$versions.okio",
+            okhttp3                    : "com.squareup.okhttp3:okhttp:$versions.okhttp3",
+            okhttp3_logging            : "com.squareup.okhttp3:logging-interceptor:$versions.okhttp3_logging",
+            okio                       : "com.squareup.okio:okio:$versions.okio",
 
             //retrofit https://github.com/square/retrofit
-            retrofit2                : "com.squareup.retrofit2:retrofit:$versions.retrofit2",
-            retrofit2_adapter_rxjava2: "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit2_adapter_rxjava2",
-            retrofit2_converter_gson : "com.squareup.retrofit2:converter-gson:$versions.retrofit2_converter_gson",
+            retrofit2                  : "com.squareup.retrofit2:retrofit:$versions.retrofit2",
+            retrofit2_adapter_rxjava2  : "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit2_adapter_rxjava2",
+            retrofit2_converter_gson   : "com.squareup.retrofit2:converter-gson:$versions.retrofit2_converter_gson",
 
             // Log日志工具
             // https://github.com/orhanobut/logger
-            logger                   : "com.orhanobut:logger:$versions.logger",
+            logger                     : "com.orhanobut:logger:$versions.logger",
 
             // https://github.com/google/gson
-            gson                     : "com.google.code.gson:gson:$versions.gson",
+            gson                       : "com.google.code.gson:gson:$versions.gson",
 
             // https://github.com/Ereza/CustomActivityOnCrash
             // 崩溃日志
-            customactivityoncrash    : "cat.ereza:customactivityoncrash:$versions.customactivityoncrash",
+            customactivityoncrash      : "cat.ereza:customactivityoncrash:$versions.customactivityoncrash",
 
             // glide 图像处理
             // https://github.com/bumptech/glide
-            glide                    : "com.github.bumptech.glide:glide:$versions.glide",
+            glide                      : "com.github.bumptech.glide:glide:$versions.glide",
 
             // 一个强大的图片轮播控件
             // https://github.com/youth5201314/banner
-            banner                   : "com.youth.banner:banner:$versions.banner",
+            banner                     : "com.youth.banner:banner:$versions.banner",
 
             // 对RecycleView中Adapter进行的抽离
             // https://github.com/CymChad/BaseRecyclerViewAdapterHelper
-            recycle_adapter          : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$versions.recycle_adapter",
+            recycle_adapter            : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$versions.recycle_adapter",
 
             // SmartRefreshLayout刷新样式
             // https://github.com/scwang90/SmartRefreshLayout
-            smart_refresh_layout     : "com.scwang.smartrefresh:SmartRefreshLayout:$versions.smart_refresh_layout",
+            smart_refresh_layout       : "com.scwang.smartrefresh:SmartRefreshLayout:$versions.smart_refresh_layout",
 
             // EventBus
             // https://github.com/greenrobot/EventBus
-            eventbus                 : "org.greenrobot:eventbus:$versions.eventbus",
+            eventbus                   : "org.greenrobot:eventbus:$versions.eventbus",
 
             //黄油刀
-            butterknife              : "com.jakewharton:butterknife:$versions.butterknife",
-            butterknife_compiler     : "com.jakewharton:butterknife-compiler:$versions.butterknife_compiler",
+            butterknife                : "com.jakewharton:butterknife:$versions.butterknife",
+            butterknife_compiler       : "com.jakewharton:butterknife-compiler:$versions.butterknife_compiler",
 
             // 缓存
-            disklrucache             : "com.jakewharton:disklrucache:$versions.disklrucache",
+            disklrucache               : "com.jakewharton:disklrucache:$versions.disklrucache",
+
             //个推  推送
-            getui                    : "com.getui:sdk:2.12.3.0",
+            getui                      : "com.getui:sdk:2.12.3.0",
 
             //热修复
-            bugly                    : "com.tencent.bugly:crashreport_upgrade:$versions.bugly",
-            bugly_nativecrashreport  : "com.tencent.bugly:nativecrashreport:latest.release"
+            bugly                      : "com.tencent.bugly:crashreport_upgrade:$versions.bugly",
+            bugly_nativecrashreport    : "com.tencent.bugly:nativecrashreport:latest.release",
 
+            // 内存泄漏监测
+            //leakcanary
+            leakcanary_debug           : "com.squareup.leakcanary:leakcanary-android:1.6.2",
+            leakcanary_release         : "com.squareup.leakcanary:leakcanary-android-no-op:1.6.2",
+            // Optional, if you use support library fragments:
+            leakcanary_support_fragment: "com.squareup.leakcanary:leakcanary-support-fragment:1.6.2",
+
+            // 友盟
+            umeng_common               : "com.umeng.sdk:common:latest.integration",
+            umeng_analytics            : "com.umeng.sdk:analytics:latest.integration"
+
+            // 本地异常捕捉框架：https://github.com/Ereza/CustomActivityOnCrash
+            // 内存泄漏捕捉：https://github.com/square/leakcanary
             // 吐司工具类：https://github.com/getActivity/ToastUtils
             // 工具类：https://github.com/Blankj/AndroidUtilCode
             // 轮播图：https://github.com/bingoogolapple/BGABanner-Android
@@ -198,16 +212,13 @@ ext {
             //             https://github.com/mayubao/Android-Pay
             // 第三方登陆：https://github.com/justauth/JustAuth
             // 图片压缩：https://github.com/Curzibn/Luban
-            // 对象存储：https://github.com/leavesC/DoKV
-            // 本地异常捕捉框架：https://github.com/Ereza/CustomActivityOnCrash
-            // 内存泄漏捕捉：https://github.com/square/leakcanary
             // 支持放大缩放的图片：https://github.com/chrisbanes/PhotoView
+            // 对象存储：https://github.com/leavesC/DoKV
+            // 数据缓存 https://github.com/Stubborn-boy/DiskCache
+            //          https://github.com/JakeWharton/DiskLruCache
             // 闪光控件  https://github.com/facebook/shimmer-android
             //           https://github.com/elye/loaderviewlibrary
-            // implementation 'com.facebook.shimmer:shimmer:0.5.0'
-            // 数据缓存 https://github.com/Stubborn-boy/DiskCache
-            // https://github.com/JakeWharton/DiskLruCache
-
+            //           implementation 'com.facebook.shimmer:shimmer:0.5.0'
             // 接口数据抓取 https://github.com/leavesC/Monitor
     ]
 }
