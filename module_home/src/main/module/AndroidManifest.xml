@@ -1,8 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.xiaodou.module_home">
 
-    <application android:theme="@style/AppTheme">
+    <!--tools:replace="android:name" 作用 避免和其他Application 冲突-->
+    <application
+        android:name="com.xiaodou.common.MainApplication"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        tools:replace="android:name">
 
+        <!--以下是 activity 的入口-->
         <activity android:name="debug.HomeActivity">
 
             <intent-filter>

@@ -221,7 +221,7 @@ public class DownloadManager {
     public static Uri getUriForFile(File file) {
         Uri fileUri = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            fileUri = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".fileprovider", file);
+            fileUri = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".fileProvider", file);
         } else {
             fileUri = Uri.fromFile(file);
         }

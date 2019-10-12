@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.lhz.android.baseUtils.utils.ContextUtils;
+import com.lhz.android.libBaseCommon.BuildConfig;
 import com.lhz.android.libBaseCommon.base.BaseApi;
 import com.lhz.android.libBaseCommon.base.BaseApplication;
 import com.lhz.android.libBaseCommon.statelayout.IRPageStatusController;
@@ -52,7 +53,7 @@ public class MainApplication extends BaseApplication {
         Logger.addLogAdapter(new AndroidLogAdapter() {
             @Override
             public boolean isLoggable(int priority, String tag) {
-                return BuildConfig.DEBUG;
+                return BuildConfig.LOG_DEBUG;
             }
         });
 

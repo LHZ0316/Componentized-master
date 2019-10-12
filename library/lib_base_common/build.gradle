@@ -18,8 +18,20 @@ android {
     }
 
     buildTypes {
+        debug {
+            // 设置混淆
+            minifyEnabled false
+            //配置api地址,在BuildConfig可以找到该字段
+            buildConfigField "String", "API_URL", "\"http://service.dev.51xiaodou.com:8020/\""
+            //是否输出LOG信息
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+        }
         release {
             minifyEnabled false
+            //配置api地址,在BuildConfig可以找到该字段
+            buildConfigField "String", "API_URL", "\"https://mapi-2020.moycp.com/\""
+            //是否输出LOG信息
+            buildConfigField "boolean", "LOG_DEBUG", "true"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

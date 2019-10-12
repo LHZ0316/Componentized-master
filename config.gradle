@@ -1,8 +1,9 @@
 ext {
 
     appID = [
-            "app": "com.lhz.xiaodou"//正确的包名
-//            "app": "com.lhz.xiaodou_test"//调式的包名
+            "app": "com.lhz.xiaodou",//正确的包名
+            "test": "com.lhz.xiaodou_test",//调式的包名
+            "huawei": "com.lhz.xiaodou_huawei"//调式的包名
 
     ]
 

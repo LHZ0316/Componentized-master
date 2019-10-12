@@ -3,23 +3,22 @@
     package="com.xiaodou.core">
 
     <application>
+        <!--以下是 整个主项目 的入口-->
         <activity
             android:name=".view.LaunchActivity"
             android:theme="@style/SplashTheme">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
 
         <activity
             android:name=".view.MainActivity"
             android:launchMode="singleTask" />
 
         <activity android:name=".view.SplashActivity" />
+
     </application>
 </manifest>

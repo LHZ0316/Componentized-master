@@ -6,10 +6,12 @@ def releaseTime() {
     return new Date().format("yyyyMMdd", TimeZone.getTimeZone("GMT+8"))
 }
 
+// config.gradle中配置
 def ext = rootProject.ext
 def version = ext.versions
 def appPackage = ext.appID
 def dependencie = ext.dependencies
+
 //获取签名文件
 def keystorePropertiesFile = rootProject.file("../MvpFrame/app/keystore.properties")
 def keystoreProperties = new Properties()
@@ -25,6 +27,7 @@ android {
         versionName version.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        flavorDimensions "default"
 
         //个推配置
         manifestPlaceholders = [
@@ -40,7 +43,7 @@ android {
     }
     // APK 签名
     signingConfigs {
-        config {
+        configRelease {
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storeFile file(keystoreProperties['storeFile'])
@@ -52,19 +55,69 @@ android {
             // 设置混淆
             minifyEnabled false
             // 开发环境签名
-            signingConfig signingConfigs.config
+            signingConfig signingConfigs.configRelease
         }
         release {
             // 设置混淆
             minifyEnabled false
             // 正式环境签名
-            signingConfig signingConfigs.config
+            signingConfig signingConfigs.configRelease
             // 混淆配置
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationVariants.all { variant ->
-                variant.outputs.all { output ->
-                    outputFileName = "miaolicai_${releaseTime()}_v${variant.versionName}.apk"
+//            applicationVariants.all { variant ->
+//                variant.outputs.all { output ->
+//                    outputFileName = "xiaodou_${releaseTime()}_v${variant.versionName}.apk"
+//                }
+//            }
+        }
+    }
+
+    // 多渠道打包
+    productFlavors {
+        ontest {
+            applicationId appPackage.test
+            versionCode version.versionCode
+            versionName version.versionName
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "ontest", APP_NAME: "慕享_测试"]
+        }
+        online {
+            applicationId appPackage.app
+            versionCode version.versionCode
+            versionName version.versionName
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "online", APP_NAME: "慕享"]
+        }
+        huawei {
+            applicationId appPackage.huawei
+            versionCode version.versionCode
+            versionName version.versionName
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei", APP_NAME: "慕享_huawei"]
+        }
+        xiaomi {
+            applicationId
+            versionCode
+            versionName
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi", APP_NAME: "慕享_xiaomi"]
+        }
+        tencent {
+            applicationId
+            versionCode
+            versionName
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "tencent", APP_NAME: "慕享_tencent"]
+        }
+    }
+    // 输出apk
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName
+                if (variant.buildType.name == "release") {
+                    // 输出apk名称为
+                    fileName = "${variant.productFlavors[0].name}_${releaseTime()}_v${variant.versionName}.apk"
+                } else {
+                    fileName = "${variant.productFlavors[0].name}_${releaseTime()}_v${variant.versionName}_debug.apk"
                 }
+                outputFileName = fileName
             }
         }
     }
