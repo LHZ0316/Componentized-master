@@ -2,7 +2,7 @@ package com.xiaodou.core.contract;
 
 import com.lhz.android.libBaseCommon.base.BasePresenter;
 import com.lhz.android.libBaseCommon.base.IBaseView;
-import com.lhz.android.libBaseCommon.https.RequestParam;
+import com.lhz.android.libBaseCommon.https.parameters.RequestParam;
 import com.xiaodou.core.view.LaunchActivity;
 import com.xiaodou.core.view.MainActivity;
 

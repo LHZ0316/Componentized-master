@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 //引用bugly配置文件
 apply from: "tinker-support.gradle"
 
-def releaseTime() {
+static def releaseTime() {
     return new Date().format("yyyyMMdd", TimeZone.getTimeZone("GMT+8"))
 }
 
@@ -145,7 +145,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     implementation project(':module_common')
-//    implementation project(':lib_thermal_repair')//热更新模块
+//    implementation project(':lib_hotfix')//热更新模块
     //个推sdk
     implementation dependencie.getui
 

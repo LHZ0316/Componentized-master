@@ -19,14 +19,9 @@ import com.lhz.android.libBaseCommon.statelayout.utils.RPageStatusUtils;
 /**
  * ======================================================================
  * <p>
- * 作者：Renj
- * 邮箱：itrenjunhua@163.com
- * <p>
- * 创建时间：2019-06-20   14:45
+ * https://github.com/itrenjunhua/RPageStatusController
  * <p>
  * 描述：页面状态控制类，包括配置独立的状态页面以及修改页面状态
- * <p>
- * 修订历史：
  * <p>
  * ======================================================================
  */

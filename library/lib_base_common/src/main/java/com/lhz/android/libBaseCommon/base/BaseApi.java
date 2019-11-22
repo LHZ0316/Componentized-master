@@ -2,7 +2,7 @@ package com.lhz.android.libBaseCommon.base;
 
 import com.google.gson.Gson;
 import com.lhz.android.libBaseCommon.BuildConfig;
-import com.lhz.android.libBaseCommon.https.RequestParam;
+import com.lhz.android.libBaseCommon.https.parameters.RequestParam;
 import com.orhanobut.logger.Logger;
 
 import okhttp3.MediaType;

@@ -16,13 +16,13 @@ import java.util.List;
  */
 public abstract class SQLiteDbHelper {
 
-    protected SQLiteOpenHelper mSQLiteOpenHelper;
+    protected SQLiteDataHelper mSQLiteDataHelper;
 
-    private SQLiteOpenHelper getObjectDBHelper() {
-        if (mSQLiteOpenHelper == null) {
-            mSQLiteOpenHelper = new SQLiteOpenHelper(MainApplication.getInstance());
+    private SQLiteDataHelper getObjectDBHelper() {
+        if (mSQLiteDataHelper == null) {
+            mSQLiteDataHelper = new SQLiteDataHelper(MainApplication.getInstance());
         }
-        return mSQLiteOpenHelper;
+        return mSQLiteDataHelper;
     }
 
     /**

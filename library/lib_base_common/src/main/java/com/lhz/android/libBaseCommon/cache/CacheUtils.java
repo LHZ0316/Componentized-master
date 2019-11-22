@@ -25,6 +25,10 @@ public class CacheUtils {
     /**
      * 获取应用版本
      *
+     * 每当版本号改变，缓存路径下存储的所有数据都会被清除掉，
+     * 因为DiskLruCache认为当应用程序有版本更新的时候，所有的数据都应该从网上重新获取
+     * 这次默认为1
+     *
      * @param context
      * @return
      */

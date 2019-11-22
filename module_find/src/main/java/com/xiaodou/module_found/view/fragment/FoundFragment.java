@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.lhz.android.libBaseCommon.base.RouterPath;
-import com.lhz.android.libBaseCommon.mvp_senior.annotations.CreatePresenterAnnotation;
+import com.lhz.android.libBaseCommon.seniorMvp.annotations.CreatePresenterAnnotation;
 import com.lhz.android.baseUtils.utils.StatusBar;
 import com.lhz.android.baseUtils.widget.TitleBar;
 import com.xiaodou.module_find.R2;

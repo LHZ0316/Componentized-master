@@ -2,7 +2,7 @@ package debug;
 
 import android.os.Bundle;
 
-import com.lhz.android.libBaseCommon.mvp_senior.annotations.CreatePresenterAnnotation;
+import com.lhz.android.libBaseCommon.seniorMvp.annotations.CreatePresenterAnnotation;
 import com.xiaodou.module_home.R;
 import com.xiaodou.module_home.base.BaseHomeActivity;
 import com.xiaodou.module_home.contract.IHomeFragmentContract;

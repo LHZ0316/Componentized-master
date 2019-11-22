@@ -17,14 +17,11 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.lhz.android.baseUtils.utils.DeviceIdUtil;
-import com.lhz.android.baseUtils.utils.ToastUtils;
 import com.lhz.android.libBaseCommon.base.BaseFragment;
 import com.lhz.android.libBaseCommon.base.RouterPath;
-import com.lhz.android.libBaseCommon.https.RequestParam;
-import com.lhz.android.libBaseCommon.mvp_senior.annotations.CreatePresenterAnnotation;
+import com.lhz.android.libBaseCommon.https.parameters.RequestParam;
+import com.lhz.android.libBaseCommon.seniorMvp.annotations.CreatePresenterAnnotation;
 import com.lhz.android.baseUtils.widget.ImmerseFrameLayout;
-import com.orhanobut.logger.Logger;
 import com.xiaodou.core.base.BaseMainActivity;
 import com.xiaodou.core.contract.IMainContract;
 import com.xiaodou.core.presenter.MainPresenter;

@@ -1,8 +1,8 @@
 package com.xiaodou.core.presenter;
 
 import com.lhz.android.libBaseCommon.base.BaseApi;
-import com.lhz.android.libBaseCommon.https.RequestParam;
-import com.lhz.android.libBaseCommon.https.observers_extension.ProgressObserver;
+import com.lhz.android.libBaseCommon.https.parameters.RequestParam;
+import com.lhz.android.libBaseCommon.https.observers.ProgressObserver;
 import com.lhz.android.libBaseCommon.https.scheduler.RxSchedulers;
 import com.xiaodou.core.module.MainModule;
 import com.xiaodou.core.contract.IMainContract;

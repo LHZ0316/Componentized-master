@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lhz.android.libBaseCommon.https.widget.LoadingDialog;
-import com.lhz.android.libBaseCommon.mvp_senior.factroy.IMvpPresenterFactory;
-import com.lhz.android.libBaseCommon.mvp_senior.factroy.IPresenterProxyFactory;
-import com.lhz.android.libBaseCommon.mvp_senior.factroy.MvpPresenterFactoryImpl;
-import com.lhz.android.libBaseCommon.mvp_senior.factroy.PresenterProxyFactoryImpl;
+import com.lhz.android.libBaseCommon.seniorMvp.factroy.IMvpPresenterFactory;
+import com.lhz.android.libBaseCommon.seniorMvp.factroy.IPresenterProxyFactory;
+import com.lhz.android.libBaseCommon.seniorMvp.factroy.MvpPresenterFactoryImpl;
+import com.lhz.android.libBaseCommon.seniorMvp.factroy.PresenterProxyFactoryImpl;
 
 import io.reactivex.ObservableTransformer;
 
@@ -97,7 +97,7 @@ public abstract class BaseMvpFragment<V extends IBaseView, P extends BasePresent
     }
 
     @Override
-    public <T> ObservableTransformer<T, T> bindLifeycle() {
+    public <T> ObservableTransformer<T, T> bindLifecycle() {
         return this.bindToLifecycle();
     }
 }

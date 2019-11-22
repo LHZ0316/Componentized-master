@@ -202,6 +202,7 @@ ext {
             umeng_common               : "com.umeng.sdk:common:latest.integration",
             umeng_analytics            : "com.umeng.sdk:analytics:latest.integration"
 
+            // fastJson： https://github.com/alibaba/fastjson
             // 本地异常捕捉框架：https://github.com/Ereza/CustomActivityOnCrash
             // 内存泄漏捕捉：https://github.com/square/leakcanary
             // 吐司工具类：https://github.com/getActivity/ToastUtils
@@ -220,5 +221,6 @@ ext {
             //           https://github.com/elye/loaderviewlibrary
             //           implementation 'com.facebook.shimmer:shimmer:0.5.0'
             // 接口数据抓取 https://github.com/leavesC/Monitor
+            // 选择器：  https://github.com/Bigkoo/Android-PickerView
     ]
 }

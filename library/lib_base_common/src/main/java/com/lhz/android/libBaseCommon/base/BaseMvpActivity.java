@@ -5,10 +5,10 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.lhz.android.libBaseCommon.https.widget.LoadingDialog;
-import com.lhz.android.libBaseCommon.mvp_senior.factroy.IMvpPresenterFactory;
-import com.lhz.android.libBaseCommon.mvp_senior.factroy.IPresenterProxyFactory;
-import com.lhz.android.libBaseCommon.mvp_senior.factroy.MvpPresenterFactoryImpl;
-import com.lhz.android.libBaseCommon.mvp_senior.factroy.PresenterProxyFactoryImpl;
+import com.lhz.android.libBaseCommon.seniorMvp.factroy.IMvpPresenterFactory;
+import com.lhz.android.libBaseCommon.seniorMvp.factroy.IPresenterProxyFactory;
+import com.lhz.android.libBaseCommon.seniorMvp.factroy.MvpPresenterFactoryImpl;
+import com.lhz.android.libBaseCommon.seniorMvp.factroy.PresenterProxyFactoryImpl;
 
 import io.reactivex.ObservableTransformer;
 
@@ -29,7 +29,7 @@ public abstract class BaseMvpActivity<V extends IBaseView, P extends BasePresent
      * 绑定生命周期
      */
     @Override
-    public <T> ObservableTransformer<T, T> bindLifeycle() {
+    public <T> ObservableTransformer<T, T> bindLifecycle() {
         return this.bindToLifecycle();
     }
 

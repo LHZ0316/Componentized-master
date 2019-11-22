@@ -1,21 +1,15 @@
 package com.xiaodou.core.view;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.view.View;
-import android.view.WindowManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.lhz.android.libBaseCommon.base.RouterPath;
-import com.lhz.android.libBaseCommon.mvp_senior.annotations.CreatePresenterAnnotation;
-import com.lhz.android.baseUtils.utils.ScreenUtil;
-import com.lhz.android.baseUtils.utils.StatusBar;
-import com.scwang.smartrefresh.layout.util.DensityUtil;
+import com.lhz.android.libBaseCommon.seniorMvp.annotations.CreatePresenterAnnotation;
 import com.xiaodou.core.base.BaseMainActivity;
 import com.xiaodou.core.contract.IMainContract;
 import com.xiaodou.core.presenter.LaunchPresenter;

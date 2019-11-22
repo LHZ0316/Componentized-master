@@ -23,6 +23,13 @@ public class DiskCache {
     private DiskLruCache diskLruCache;
     private Context context;
 
+    /**
+     * DiskLruCache.open()
+     * 第一个参数指定的是数据的缓存地址
+     * 第二个参数指定当前应用程序的版本号
+     * 第三个参数指定同一个key可以对应多少个缓存文件，基本都是传1
+     * 第四个参数指定最多可以缓存多少字节的数据
+     */
     private DiskCache(Context context) {
         this.context = context;
         if (diskLruCache == null) {

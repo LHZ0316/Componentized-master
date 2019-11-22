@@ -13,7 +13,7 @@ import android.util.Log;
 
 import com.lhz.android.libBaseCommon.BuildConfig;
 import com.lhz.android.libBaseCommon.base.BaseApplication;
-import com.lhz.android.libBaseCommon.https.public_parameters.HeadersPublic;
+import com.lhz.android.libBaseCommon.https.parameters.HeaderParams;
 import com.lhz.android.libBaseCommon.utils.BSPUtil;
 import com.lhz.android.libBaseCommon.utils.MD5Util;
 import com.orhanobut.logger.Logger;
@@ -74,13 +74,13 @@ public class InterceptorUtil {
                 // 时间戳
                 String timestamp = String.valueOf(System.currentTimeMillis());
                 Request request = chain.request().newBuilder()
-                        .addHeader(HeadersPublic.MODULE, HeadersPublic.MODULE_APP)
-                        .addHeader(HeadersPublic.SESSION_TOKEN, String.valueOf(BSPUtil.get(context, HeadersPublic.TOKEN, "")))
-                        .addHeader(HeadersPublic.DEVICE_ID, deviceId)
-                        .addHeader(HeadersPublic.CLIENT_IP, getLocalIpAddress(BaseApplication.getInstance()))
-                        .addHeader(HeadersPublic.CLIENT_TYPE, HeadersPublic.TYPE)
-                        .addHeader(HeadersPublic.VERSION, String.valueOf(BuildConfig.VERSION_NAME))
-                        .addHeader(HeadersPublic.TRACE_ID, getSigna(timestamp)).build();
+                        .addHeader(HeaderParams.MODULE, HeaderParams.MODULE_APP)
+                        .addHeader(HeaderParams.SESSION_TOKEN, String.valueOf(BSPUtil.get(context, HeaderParams.TOKEN, "")))
+                        .addHeader(HeaderParams.DEVICE_ID, deviceId)
+                        .addHeader(HeaderParams.CLIENT_IP, getLocalIpAddress(BaseApplication.getInstance()))
+                        .addHeader(HeaderParams.CLIENT_TYPE, HeaderParams.TYPE)
+                        .addHeader(HeaderParams.VERSION, String.valueOf(BuildConfig.VERSION_NAME))
+                        .addHeader(HeaderParams.TRACE_ID, getSigna(timestamp)).build();
                 return chain.proceed(request);
             }
         };
@@ -131,7 +131,7 @@ public class InterceptorUtil {
      * 请求方法版本号：method_version   接口无多个版本方法，可以为空
      * 渠道名称：channel        BSPKey.getChannel(context)
      * 渠道签名：channelSigna   getSigna(BSPKey.getChannel(context))
-     * 登录标识：token			 String.valueOf(BSPUtil.get(context, HeadersPublic.TOKEN, ""))
+     * 登录标识：token			 String.valueOf(BSPUtil.get(context, HeaderParams.TOKEN, ""))
      * 请求签名：sign
      * 时间戳：timestamp
      * 设备序列号：deviceId
@@ -149,13 +149,13 @@ public class InterceptorUtil {
         String timestamp = String.valueOf(System.currentTimeMillis());
 
         // 请求头参数
-        request.addHeader(HeadersPublic.MODULE, HeadersPublic.MODULE_APP);
-        request.addHeader(HeadersPublic.SESSION_TOKEN, String.valueOf(BSPUtil.get(context, HeadersPublic.TOKEN, "")));
-        request.addHeader(HeadersPublic.DEVICE_ID, deviceId);
-        request.addHeader(HeadersPublic.CLIENT_IP, getLocalIpAddress(BaseApplication.getInstance()));
-        request.addHeader(HeadersPublic.CLIENT_TYPE, HeadersPublic.TYPE);
-        request.addHeader(HeadersPublic.VERSION, String.valueOf(BuildConfig.VERSION_NAME));
-        request.addHeader(HeadersPublic.TRACE_ID, getSigna(timestamp));
+        request.addHeader(HeaderParams.MODULE, HeaderParams.MODULE_APP);
+        request.addHeader(HeaderParams.SESSION_TOKEN, String.valueOf(BSPUtil.get(context, HeaderParams.TOKEN, "")));
+        request.addHeader(HeaderParams.DEVICE_ID, deviceId);
+        request.addHeader(HeaderParams.CLIENT_IP, getLocalIpAddress(BaseApplication.getInstance()));
+        request.addHeader(HeaderParams.CLIENT_TYPE, HeaderParams.TYPE);
+        request.addHeader(HeaderParams.VERSION, String.valueOf(BuildConfig.VERSION_NAME));
+        request.addHeader(HeaderParams.TRACE_ID, getSigna(timestamp));
 
     }
 
@@ -269,9 +269,9 @@ public class InterceptorUtil {
      */
     private static String getSigna(String ts) {
         // appsecrt拼接ts的字符串后进行MD5（32）
-        String signa = MD5Util.MD5Encode(HeadersPublic.APP_SECRET + ts, "UTF-8");
+        String signa = MD5Util.MD5Encode(HeaderParams.APP_SECRET + ts, "UTF-8");
         // 得到的MD5串拼接appkey再次MD5，所得结果转大写
-        signa = MD5Util.MD5Encode(signa + HeadersPublic.APP_KEY, "UTF-8").toUpperCase();
+        signa = MD5Util.MD5Encode(signa + HeaderParams.APP_KEY, "UTF-8").toUpperCase();
         return signa;
     }
 

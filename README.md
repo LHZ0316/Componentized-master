@@ -23,7 +23,7 @@ lib_base_utils  工具类库
 * 统一的崩溃收集
 * 统一的音视频播放
 
-lib_thermal_repair 热更新库
+lib_hotfix 热更新库
 * 引用库
         //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.0.0
         compile 'com.tencent.bugly:crashreport_upgrade:latest.release'

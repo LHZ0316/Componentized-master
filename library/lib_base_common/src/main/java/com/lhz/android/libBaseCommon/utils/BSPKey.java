@@ -2,7 +2,7 @@ package com.lhz.android.libBaseCommon.utils;
 
 import android.content.Context;
 
-import com.lhz.android.libBaseCommon.https.public_parameters.HeadersPublic;
+import com.lhz.android.libBaseCommon.https.parameters.HeaderParams;
 
 
 /**
@@ -15,14 +15,14 @@ public class BSPKey {
      * 渠道信息
      */
     public static void setChannel(Context context, String supportBankUrl) {
-        BSPUtil.put(context, HeadersPublic.CHANNEL, supportBankUrl);
+        BSPUtil.put(context, HeaderParams.CHANNEL, supportBankUrl);
     }
 
     /**
      * 渠道信息
      */
     public static String getChannel(Context context) {
-        return (String) BSPUtil.get(context, HeadersPublic.CHANNEL, "0");
+        return (String) BSPUtil.get(context, HeaderParams.CHANNEL, "0");
     }
 
 }

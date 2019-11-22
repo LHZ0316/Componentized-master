@@ -15,7 +15,7 @@ public interface IBaseView {
      * @param
      * @return
      */
-    <T> ObservableTransformer<T, T> bindLifeycle();
+    <T> ObservableTransformer<T, T> bindLifecycle();
 
     /**
      * 显示正在加载

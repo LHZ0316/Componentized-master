@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.lhz.android.libBaseCommon.base.RouterPath;
-import com.lhz.android.libBaseCommon.mvp_senior.annotations.CreatePresenterAnnotation;
+import com.lhz.android.libBaseCommon.seniorMvp.annotations.CreatePresenterAnnotation;
 import com.lhz.android.baseUtils.widget.TitleBar;
 import com.xiaodou.module_home.R;
 import com.xiaodou.module_home.R2;
