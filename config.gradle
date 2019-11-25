@@ -42,7 +42,8 @@ ext {
             glide                    : '3.7.0',
             //图片轮播器
             banner                   : '1.4.10',
-
+            // 适配
+            android_autosize         : '1.1.2',
             //Rx
             rxjava                   : '2.1.3',
             rxandroid2               : '2.0.1',
@@ -135,6 +136,10 @@ ext {
             // 权限处理
             // https://github.com/tbruyelle/RxPermissions
             rxpermissions              : "com.tbruyelle.rxpermissions2:rxpermissions:$versions.rxpermissions",
+
+            // 适配
+            // https://github.com/JessYanCoding/AndroidAutoSize
+            android_autosize           : "me.jessyan:autosize:$versions.android_autosize",
 
             // https://github.com/square/okhttp
             okhttp3                    : "com.squareup.okhttp3:okhttp:$versions.okhttp3",

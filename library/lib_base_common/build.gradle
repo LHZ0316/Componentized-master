@@ -75,6 +75,8 @@ dependencies {
     api dependencie.customtabs
     api dependencie.recyclerview
 
+    api project(':lib_base_utils')//工具类
+
     // dex解决方法超过65535数量
     api dependencie.multidex
 
@@ -82,7 +84,8 @@ dependencies {
     api dependencie.recycle_adapter
     // 一个强大的下拉刷新库,SmartRefreshLayout
     api dependencie.smart_refresh_layout
-
+    // 适配
+    api dependencie.android_autosize
     // 网络框架OkHttp
     // https://github.com/square/okhttp
     api dependencie.okhttp3

@@ -51,6 +51,13 @@
         android:theme="@style/AppTheme"
         tools:node="merge"
         tools:replace="android:name,android:icon,android:theme,android:allowBackup,android:supportsRtl">
+        <!--今日头条适配方案-->
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="375" />
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="667" />
         <!-- 允许绘制到小米刘海屏机型的刘海区域 -->
         <meta-data
             android:name="notch.config"

@@ -15,7 +15,7 @@ android {
         targetSdkVersion version.targetSdkVersion
         versionCode version.versionCode
         versionName version.versionName
-
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         //阿里路由配置

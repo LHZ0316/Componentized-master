@@ -37,7 +37,6 @@ dependencies {
     api dependencie.core
 
     api project(':lib_base_common')//基类
-    api project(':lib_base_utils')//工具类
     api project(':lib_share_push')//分享模块
     api project(':lib_hotfix')//热更新模块
 
