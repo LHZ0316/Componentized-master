@@ -58,8 +58,12 @@ android {
             signingConfig signingConfigs.configRelease
         }
         release {
+            // 是否优化zip
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
             // 设置混淆
-            minifyEnabled false
+            minifyEnabled true
             // 正式环境签名
             signingConfig signingConfigs.configRelease
             // 混淆配置
