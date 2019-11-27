@@ -13,7 +13,15 @@ import com.xiaodou.core.view.MainActivity;
 public interface IMainContract {
 
     interface View extends IBaseView {
+        /**
+        *  获取context
+        */
         MainActivity getThis();
+
+        /**
+         * 更新数据
+         */
+        void updateData();
     }
 
     interface LaunchView extends IBaseView {

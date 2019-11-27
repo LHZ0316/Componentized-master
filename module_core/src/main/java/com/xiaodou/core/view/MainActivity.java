@@ -184,6 +184,11 @@ public class MainActivity extends BaseMainActivity<IMainContract.View, MainPrese
     }
 
     @Override
+    public void updateData() {
+        // 接口返回的数据
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // 绑定物理返回键
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {

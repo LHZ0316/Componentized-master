@@ -8,12 +8,15 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.lhz.android.libBaseCommon.base.RouterPath;
 import com.lhz.android.libBaseCommon.seniorMvp.annotations.CreatePresenterAnnotation;
 import com.xiaodou.core.base.BaseMainActivity;
 import com.xiaodou.core.contract.IMainContract;
 import com.xiaodou.core.presenter.LaunchPresenter;
 import com.xiaodou.common.R;
+import com.xiaodou.router.moduleCore.CoreRouterPath;
+import com.xiaodou.router.moduleCore.ICoreProvider;
 
 import java.lang.ref.WeakReference;
 
@@ -62,8 +65,12 @@ public class LaunchActivity extends BaseMainActivity<IMainContract.LaunchView, L
                 activity.time--;
 //            txt.setText(time + "s");
                 if (activity.time == 0) {
-                    activity.startActivity(new Intent(activity, MainActivity.class));
-                    activity.finish();
+                    ICoreProvider loginService = (ICoreProvider) ARouter.getInstance().build(CoreRouterPath.ROUTER_PATH_TO_LOGIN).navigation();
+                    if (loginService != null) {
+                        loginService.goToLogin(activity);
+                    }
+//                    activity.startActivity(new Intent(activity, MainActivity.class));
+//                    activity.finish();
                     activity.myHandler.removeMessages(0);
                 }
                 activity.myHandler.sendEmptyMessageDelayed(0, 500);

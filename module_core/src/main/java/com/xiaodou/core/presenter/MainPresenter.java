@@ -31,7 +31,7 @@ public class MainPresenter extends IMainContract.Presenter {
                 .subscribe(new ProgressObserver<TestBean>(this) {
                     @Override
                     public void onSuccess(TestBean result) {
-
+//                        getView().updateData();
                         Logger.getLogger("MainPresenter-----").warning("请求成功");
                     }
                 });
