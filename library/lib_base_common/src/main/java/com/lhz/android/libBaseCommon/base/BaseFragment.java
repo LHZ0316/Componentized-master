@@ -9,13 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lhz.android.libBaseCommon.eventbus.EventType;
+import com.lhz.android.libBaseCommon.eventbus.EventBusUtil;
+import com.lhz.android.libBaseCommon.eventbus.MessageEvent;
 import com.lhz.android.libBaseCommon.https.widget.LoadingDialog;
 import com.lhz.android.libBaseCommon.utils.Utils;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
 
@@ -43,14 +44,18 @@ public abstract class BaseFragment extends RxFragment {
         mLoadingDialog = new LoadingDialog(getContext());
         initData();
         initView();
-        EventBus.getDefault().register(this);
+        if (isRegisterEventBus()) {
+            EventBusUtil.register(this);
+        }
         return inflate;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        EventBus.getDefault().unregister(this);
+        if (isRegisterEventBus()) {
+            EventBusUtil.unregister(this);
+        }
     }
 
     /**
@@ -59,6 +64,47 @@ public abstract class BaseFragment extends RxFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+    }
+
+    /**
+     * 是否注册事件分发
+     *
+     * @return true绑定EventBus事件分发，默认不绑定，子类需要绑定的话复写此方法返回true.
+     */
+    protected boolean isRegisterEventBus() {
+        return false;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventBusAccept(MessageEvent event) {
+        if (event != null) {
+            receiveEvent(event);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onStickyEventBusAccept(MessageEvent event) {
+        if (event != null) {
+            receiveStickyEvent(event);
+        }
+    }
+
+    /**
+     * 接收到分发到事件
+     *
+     * @param event 事件
+     */
+    protected void receiveEvent(MessageEvent event) {
+
+    }
+
+    /**
+     * 接受到分发的粘性事件
+     *
+     * @param event 粘性事件
+     */
+    protected void receiveStickyEvent(MessageEvent event) {
 
     }
 
@@ -130,11 +176,6 @@ public abstract class BaseFragment extends RxFragment {
      */
     protected void popFragment() {
         getHoldingActivity().popFragment();
-    }
-
-    @Subscribe
-    public void onEventType(EventType eventType) {
-
     }
 
     public void showLoadingDialog() {

@@ -26,7 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lhz.android.libBaseCommon.R;
-import com.lhz.android.libBaseCommon.eventbus.EventType;
+import com.lhz.android.libBaseCommon.eventbus.EventBusUtil;
+import com.lhz.android.libBaseCommon.eventbus.MessageEvent;
 import com.lhz.android.libBaseCommon.statelayout.RPageStatusController;
 import com.lhz.android.libBaseCommon.utils.AppManager;
 import com.lhz.android.libBaseCommon.utils.StatusBarUtil;
@@ -34,8 +35,8 @@ import com.lhz.android.libBaseCommon.utils.Utils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Random;
 
@@ -52,11 +53,6 @@ import butterknife.ButterKnife;
 @SuppressLint("Registered")
 public abstract class BaseActivity extends RxAppCompatActivity {
     /**
-     * 是否禁止旋转屏幕
-     **/
-    private boolean isAllowScreenRotate = true;
-
-    /**
      * 标题栏
      */
     private boolean isHaveTitle = true;
@@ -71,18 +67,10 @@ public abstract class BaseActivity extends RxAppCompatActivity {
      * 界面状态管理
      */
     protected RPageStatusController rPageStatusController;
-    protected RxPermissions rxPermissions;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 禁止所有的activity横屏
-        if (isAllowScreenRotate) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        } else {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
         // 设置标题
         if (isHaveTitle) {
             mView = initContentView();
@@ -98,17 +86,30 @@ public abstract class BaseActivity extends RxAppCompatActivity {
             rPageStatusController = RPageStatusController.get();
             rPageStatusController.bind(this);
         }
-
+        // 禁止所有的activity横屏
+        if (isScreenRotate()) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        } else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
+        // ButterKnife
         ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
-        rxPermissions = new RxPermissions(this);
+        // EventBus
+//        EventBus.getDefault().register(this);
+        if (isRegisterEventBus()) {
+            EventBusUtil.register(this);
+        }
+        // activity管理栈
         AppManager.getInstance().addActivity(this);
         // 设置状态栏颜色
         StatusBarUtil.setColor(this, getResources().getColor(R.color.white), 0);
+        // 虚拟键颜色
         setNavigationBarColor(this);
+        // 软键盘
         initSoftKeyboard();
-        // 初始化
+        // 初始化UI
         initView(savedInstanceState);
+        // 初始化数据
         initData();
 
     }
@@ -228,14 +229,59 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         // 移除栈
         AppManager.getInstance().finishActivity(this);
         // 注销eventBus
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
+        if (isRegisterEventBus()) {
+            EventBusUtil.unregister(this);
+        }
+
+    }
+
+    /**
+     * 是否注册事件分发
+     *
+     * @return true绑定EventBus事件分发，默认不绑定，子类需要绑定的话复写此方法返回true.
+     */
+    protected boolean isRegisterEventBus() {
+        return false;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventBusAccept(MessageEvent event) {
+        if (event != null) {
+            receiveEvent(event);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onStickyEventBusAccept(MessageEvent event) {
+        if (event != null) {
+            receiveStickyEvent(event);
+        }
+    }
+
+    /**
+     * 接收到分发到事件
+     *
+     * @param event 事件
+     */
+    protected void receiveEvent(MessageEvent event) {
+
+    }
+
+    /**
+     * 接受到分发的粘性事件
+     *
+     * @param event 粘性事件
+     */
+    protected void receiveStickyEvent(MessageEvent event) {
+
     }
 
     /**
      * 设置屏幕是否可以旋转
      */
-    public void setScreenRoate(boolean isAllowScreenRotate) {
-        this.isAllowScreenRotate = isAllowScreenRotate;
+    public boolean isScreenRotate() {
+        return true;
     }
 
     /**
@@ -427,15 +473,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     public final boolean postAtTime(Runnable r, long uptimeMillis) {
         // 发送和这个 Activity 相关的消息回调
         return HANDLER.postAtTime(r, mHandlerToken, uptimeMillis);
-    }
-
-
-    /**
-     * EventBus  接收消息
-     */
-    @Subscribe
-    public void onEventType(EventType eventType) {
-
     }
 
     /**

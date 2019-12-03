@@ -1,7 +1,10 @@
 package com.xiaodou.core.view;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
@@ -17,9 +20,11 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.lhz.android.libBaseCommon.permission.PermissionGo;
 import com.lhz.android.libBaseCommon.base.BaseFragment;
 import com.lhz.android.libBaseCommon.base.RouterPath;
 import com.lhz.android.libBaseCommon.https.parameters.RequestParam;
+import com.lhz.android.libBaseCommon.permission.PermissionUtil;
 import com.lhz.android.libBaseCommon.seniorMvp.annotations.CreatePresenterAnnotation;
 import com.lhz.android.baseUtils.widget.ImmerseFrameLayout;
 import com.xiaodou.core.base.BaseMainActivity;
@@ -29,8 +34,11 @@ import com.xiaodou.common.R;
 import com.xiaodou.common.R2;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import butterknife.BindView;
+
+import static com.lhz.android.libBaseCommon.permission.PermissionUtil.requestPermissions;
 
 /**
  * lhz  on 2019/8/21.
@@ -79,8 +87,44 @@ public class MainActivity extends BaseMainActivity<IMainContract.View, MainPrese
         requestParam.addParameter("packageTag", "xd_test");
         getMvpPresenter().httpTest(requestParam);//网络框架的使用
 
+        new PermissionUtil(MainActivity.this).requestRxPermissions(requestPermissions, this, new PermissionUtil.rxPermissionsListener() {
+            @Override
+            public void permissionSuccess() {
+
+            }
+
+            @Override
+            public void permissionFailed() {
+
+            }
+
+            @Override
+            public void permissionRefused() {
+                showDialog();
+            }
+        });
     }
 
+    //弹出提示框
+    private void showDialog() {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setMessage("录像需要相机、录音和读写权限，是否去设置？")
+                .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        PermissionGo.gotoPermission(MainActivity.this);
+                    }
+                })
+                .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setCancelable(false)
+                .show();
+    }
 
     @Override
     protected void initView(Bundle savedInstanceState) {

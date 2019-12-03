@@ -1,7 +1,10 @@
 package com.xiaodou.module_home.view.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -25,6 +28,8 @@ import com.lhz.android.libBaseCommon.cache.DiskCache;
 import com.lhz.android.libBaseCommon.dialog.AddressDialog;
 import com.lhz.android.libBaseCommon.dialog.BaseDialog;
 import com.lhz.android.libBaseCommon.dialog.MessageDialog;
+import com.lhz.android.libBaseCommon.permission.PermissionGo;
+import com.lhz.android.libBaseCommon.permission.PermissionUtil;
 import com.lhz.android.libBaseCommon.statelayout.annotation.RPageStatus;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.Permission;
@@ -40,6 +45,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
+
+import static com.lhz.android.libBaseCommon.permission.PermissionUtil.requestPermissions;
 
 
 /**
@@ -223,20 +230,33 @@ public class OneActivity extends BaseActivity {
         } else if (i == R.id.mb_button3) {
             Logger.w("申请权限===========3");
             //        lambda 表达式
-            rxPermissions
-                    .requestEach(Manifest.permission.READ_PHONE_STATE)
-                    .subscribe(new Consumer<Permission>() {
-                        @Override
-                        public void accept(Permission permission) throws Exception {
-                            if (permission.granted) {
-                                Logger.w("开启权限成功，I can control the camera now");
-                            } else if (permission.shouldShowRequestPermissionRationale) {
-                                Logger.w("Denied permission without ask never again");
-                            } else {
-                                Logger.w("Denied permission with ask never again");
+            if (Build.VERSION.SDK_INT >= 23) {
+                //调用requestPermissions
+                new PermissionUtil(OneActivity.this).requestPermissions(
+                        requestPermissions,
+                        new PermissionUtil.PermissionsListener() {
+                            @Override
+                            public void onGranted() {
+                                //所有权限都已经授权
+                                Toast.makeText(OneActivity.this, "所有权限都已授权", Toast.LENGTH_SHORT).show();
                             }
-                        }
-                    });
+
+                            @Override
+                            public void onDenied(List<String> deniedPermission) {
+                                //Toast第一个被拒绝的权限
+                                Toast.makeText(OneActivity.this, "拒绝了权限" + deniedPermission.get(0) + "该功能不能使用", Toast.LENGTH_LONG).show();
+
+                            }
+
+                            @Override
+                            public void onShouldShowRationale(List<String> deniedPermission) {
+                                //Toast第一个勾选不在提示的权限
+                                Toast.makeText(OneActivity.this, "这个权限" + deniedPermission.get(0) + "勾选了不在提示，要像用户解释为什么需要这权限", Toast.LENGTH_LONG).show();
+                                showDialog();
+
+                            }
+                        });
+            }
         } else if (i == R.id.mb_button4) {
             Logger.w("界面状态管理===========4");
             rPageStatusController.changePageStatus(RPageStatus.ERROR);
@@ -426,5 +446,25 @@ public class OneActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         KProgressUtil.newInstance().dismissProgress();
+    }
+
+    private void showDialog() {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setMessage("录像需要相机、录音和读写权限，是否去设置？")
+                .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        PermissionGo.gotoPermission(OneActivity.this);
+                    }
+                })
+                .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setCancelable(false)
+                .show();
     }
 }
